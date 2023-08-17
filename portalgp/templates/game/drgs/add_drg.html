@@ -1,0 +1,22 @@
+{% extends 'core/base.html' %}
+{% block content %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="{% url 'home' %}">Inicio</a></li>
+      <li class="breadcrumb-item"><a href="{% url 'drgs' %}">Drg</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Añadir Drg</li>
+    </ol>
+</nav>
+<br>
+<h1>Agregar nuevo Drg</h1>
+<br>
+
+<form method="POST" action="{% url 'add_drg' %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+
+    <button type="submit" class="btn btn-secondary">Agregar Drg</button>
+
+</form>
+
+{% endblock %}

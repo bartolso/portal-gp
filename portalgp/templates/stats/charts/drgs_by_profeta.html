@@ -1,0 +1,31 @@
+{% block content %}
+<div>
+    <canvas id="drgs_by_profeta_chart"></canvas>
+</div>
+
+<script>
+    const ctx3 = document.getElementById('drgs_by_profeta_chart');
+    var passedData = JSON.parse('{{ drgs_by_profeta_chart | escapejs }}');
+    new Chart(ctx3, {
+      type: 'bar',
+      data: {
+        labels: passedData.labels,
+        datasets: [{
+          label: 'Drg',
+          data: passedData.data,
+          backgroundColor: 'rgba(220, 20, 60, 0.5)',
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
+</script>
+
+
+{% endblock %}

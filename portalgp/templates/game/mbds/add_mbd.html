@@ -1,0 +1,23 @@
+{% extends 'core/base.html' %}
+{% block content %}
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="{% url 'home' %}">Inicio</a></li>
+      <li class="breadcrumb-item"><a href="{% url 'mbds' %}">M.B.D.</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Añadir M.B.D</li>
+    </ol>
+</nav>
+<br>
+<h1>Agregar nuevo M.B.D.</h1>
+<br>
+
+<form method="POST" action="{% url 'add_mbd' %}", class="w-50 p-3">
+    {% csrf_token %}
+    {{ form.as_p }}
+
+    <button type="submit" class="btn btn-secondary">Agregar M.B.D.</button>
+
+</form>
+
+{% endblock %}

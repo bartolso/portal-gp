@@ -1,0 +1,122 @@
+{% extends 'core/base.html' %}
+{% block content %}
+
+<h1>Importar datos</h1>
+<h3>Revisa los datos</h3>
+<br>
+<p>Estos son los datos encontrados en el .txt.</p>
+<p>La detección de estos datos depende del nombre con el que se tengan agregadas a las personas. Si faltan G.P. es porque posiblemente tengas agregado a alguien con un nombre raro o diferente a como está en la base de datos. Para añadir soporte a nombres raros consulta la página de alias.</p>
+<p>Los M.B.D. son detectados según el Profeta.</p>
+<br>
+<div class="card">
+    <div class="card-body">
+        <div>
+            <h4>G.P. encontrados</h4>
+            <table id="dataTableGP" class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Día</th>
+                        <th scope="col">Hora</th>
+                        <th scope="col">Jugador</th>
+                        <th scope="col">Mensaje</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if wtext.get_gps %}
+                        <tr>
+                            {% for gp in wtext.get_gps %}
+                                <td>{{ gp.0 }}</td>
+                                <td>{{ gp.1 }}</td>
+                                <td>{{ gp.2 }}</td>
+                                <td>{{ gp.3 }}</td>   
+                        </tr>
+                            {% endfor %}
+                    {% endif %}
+                </tbody>
+            </table>
+            <script>
+                $(document).ready(function() {
+                    $('#dataTableGP').DataTable();
+                });
+            </script>
+        </div>
+    </div>
+</div>
+<br>
+<br>
+<div class="card">
+    <div class="card-body">
+        <div>
+            <h4>M.B.D. encontrados</h4>
+            <table id="dataTableMBD" class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Día</th>
+                        <th scope="col">Hora</th>
+                        <th scope="col">Profeta</th>
+                        <th scope="col">Mensaje</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if wtext.get_mbds %}
+                        <tr>
+                            {% for mbd in wtext.get_mbds %}
+                                <td>{{ mbd.0 }}</td>
+                                <td>{{ mbd.1 }}</td>
+                                <td>{{ mbd.2 }}</td>
+                                <td>{{ mbd.3 }}</td>   
+                        </tr>
+                            {% endfor %}
+                    {% endif %}
+                </tbody>
+            </table>
+            <script>
+                $(document).ready(function() {
+                    $('#dataTableMBD').DataTable();
+                });
+            </script>
+        </div>
+    </div>
+</div>
+<br>
+<br>
+<div class="card">
+    <div class="card-body">
+        <div>
+            <h4>Drg encontrados</h4>
+            <table id="dataTableDRG" class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Día</th>
+                        <th scope="col">Hora</th>
+                        <th scope="col">Profeta</th>
+                        <th scope="col">Mensaje</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if wtext.get_drgs %}
+                        <tr>
+                            {% for drg in wtext.get_drgs %}
+                                <td>{{ drg.0 }}</td>
+                                <td>{{ drg.1 }}</td>
+                                <td>{{ drg.2 }}</td>
+                                <td>{{ drg.3 }}</td>   
+                        </tr>
+                            {% endfor %}
+                    {% endif %}
+                </tbody>
+            </table>
+            <script>
+                $(document).ready(function() {
+                    $('#dataTableDRG').DataTable();
+                });
+            </script>
+        </div>
+    </div>
+</div>
+<br>
+<a href="{% url 'upload_wtext_to_db' %}" type="button" class="btn btn-primary">Subir datos a la base de datos</a>
+<br>
+
+
+{% endblock %}

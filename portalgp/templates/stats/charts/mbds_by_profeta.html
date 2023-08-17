@@ -1,0 +1,31 @@
+{% block content %}
+<div>
+    <canvas id="mbds_by_profeta_chart"></canvas>
+</div>
+
+<script>
+    const ctx2 = document.getElementById('mbds_by_profeta_chart');
+    var passedData = JSON.parse('{{ mbds_by_profeta_chart | escapejs }}');
+    new Chart(ctx2, {
+      type: 'bar',
+      data: {
+        labels: passedData.labels,
+        datasets: [{
+          label: 'M.B.D.',
+          data: passedData.data,
+          backgroundColor: 'rgba(220, 20, 60, 0.5)',
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
+</script>
+
+
+{% endblock %}

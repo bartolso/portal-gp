@@ -1,0 +1,24 @@
+{% extends 'core/base.html' %}
+{% block content %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="{% url 'home' %}">Inicio</a></li>
+      <li class="breadcrumb-item"><a href="{% url 'gps' %}">G.P.</a></li>
+      <li class="breadcrumb-item"><a href="{% url 'gp' gp.id %}">{{ gp.id }}</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Modificar G.P.</li>
+    </ol>
+</nav>
+<br>
+<h1>Modificar G.P.</h1>
+<br>
+
+<form method="POST", class="w-50 p-3">
+    {% csrf_token %}
+    {{ form.as_p }}
+
+    <button type="submit" class="btn btn-primary">Modificar G.P.</button>
+
+</form>
+
+
+{% endblock %}

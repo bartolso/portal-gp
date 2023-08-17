@@ -1,0 +1,62 @@
+{% load static %}
+<nav class="navbar navbar-expand-lg bg-body-tertiary sticky-top">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="{% url 'home' %}">Portal G.P.</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Datos
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li><a class="dropdown-item bi bi-database" href="{% url 'gps' %}"> G.P.</a></li>
+                <li><a class="dropdown-item bi bi-database" href="{% url 'mbds' %}"> M.B.D.</a></li>
+                <li><a class="dropdown-item bi bi-database" href="{% url 'drgs' %}"> Drg</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="{% url 'wimport' %}">Importar datos</a></li>
+                <li><a class="dropdown-item bi bi-tools" href="{% url 'tools' %}"> Herramientas</a></li>
+              </ul>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link bi bi-calendar4-event" href="{% url 'day_view' %}"> Vista por días</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link bi bi-person-circle"> Jugadores</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link bi bi-filter-right" href="{% url 'scores' %}"> Ránkings y puntuaciones</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link bi bi-clipboard-data" href="{% url 'stats' %}"> Estadísticas</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link bi bi-file-earmark-text" href="{% url 'docs' %}"> Documentación</a>
+            </li>
+
+
+        </ul>
+        <ul class="navbar-nav ms-auto">
+          <!-- <li class="nav-item">
+            <img src="{% static 'user.png' %}" alt="Logo" width="25" height="25" class="d-inline-block">
+          </li> -->
+          
+          <li class="nav-item">
+          <a class="nav-link bi bi-person-circle nav-link" href="{% url 'user' %}"> {{ user.username }}</a>
+            
+          </li>
+          {% if user.is_authenticated %}
+              <li class="nav-item justify-content-end">
+                <a type="button" class="btn btn-danger" href="{% url 'logout' %}">Cerrar sesión</a>
+              </li>
+            {% else %}
+              <li class="nav-item justify-content-end">
+                <a type="button" class="btn btn-primary" href="{% url 'login' %}">Iniciar sesión</a>
+              </li>
+          {% endif%}
+        </ul>
+      </div>
+    </div>
+  </nav>

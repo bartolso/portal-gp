@@ -1,0 +1,30 @@
+{% block content %}
+<div>
+    <canvas id="gps_by_player_chart"></canvas>
+</div>
+
+<script>
+    const ctx1 = document.getElementById('gps_by_player_chart');
+    var passedData = JSON.parse('{{ gps_by_player_chart | escapejs }}');
+    new Chart(ctx1, {
+      type: 'bar',
+      data: {
+        labels: passedData.labels,
+        datasets: [{
+          label: 'G.P.',
+          data: passedData.data,
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
+</script>
+
+
+{% endblock %}

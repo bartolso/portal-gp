@@ -1,0 +1,18 @@
+{% extends 'core/base.html' %}
+{% block content %}
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="{% url 'home' %}">Inicio</a></li>
+      <li class="breadcrumb-item"><a href="{% url 'tools' %}">Herramientas</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Calcular posiciones de G.P.</li>
+    </ol>
+</nav>
+<h1>Calcular posiciones de G.P.</h1>
+<br>
+<form method="post" class="p-3">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit" class="btn btn-primary">Calcular posiciones de G.P.</button>
+</form>
+{% endblock %}

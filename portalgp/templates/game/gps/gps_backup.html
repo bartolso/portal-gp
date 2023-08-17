@@ -1,0 +1,84 @@
+{% extends 'core/base.html' %}
+{% block content %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="{% url 'home' %}">Inicio</a></li>
+      <li class="breadcrumb-item active" aria-current="page">G.P.</li>
+    </ol>
+</nav>
+<br>
+<h1>G.P.</h1>
+<br>
+<div>
+    <div>
+        <a href="{% url 'add_gp' %}" type="button" class="btn btn-primary">Añadir G.P.</a>
+    </div>
+    <br>
+    
+    <table id="dataTable" class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Jugador</th>
+                <th scope="col">Día</th>
+                <th scope="col">Hora</th>
+                <th scope="col">Hora M.B.D.</th>
+                <th scope="col">Hora Drg</th>
+                <th scope="col">GPV</th>
+                <th scope="col">Puesto</th>
+                <th scope="col">Racha</th>
+                <th scope="col">Validez</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if gps %}
+                <tr>
+                    {% for gp in gps %}
+                        <td><a href="{% url 'gp' gp.id %}" type="button" class="btn btn-secondary btn-sm">{{ gp.id }}</a></td>
+                        <td>{{ gp.person.name }}</td>
+                        <td>{{ gp.date }}</td>
+                        <td>{{ gp.time }}</td>
+                        {% if gp.mbd %}
+                            <td><a href="{% url 'mbd' gp.mbd.id %}" type="button" class="btn btn-secondary btn-sm">{{ gp.mbd.time }}</a></td>
+                        {% else %}
+                        <td><span class="badge bg-primary">Sin M.B.D.</span></td>
+                        {% endif%}
+
+                        {% if gp.mbd.drg %}
+                            <td><a href="{% url 'drg' gp.mbd.drg.id %}" type="button" class="btn btn-secondary btn-sm">{{ gp.mbd.drg.time }}</a></td>
+                        {% else %}
+                            <td><span class="badge bg-primary">Sin Drg</span></td>
+                        {% endif %}
+                        
+                        
+                        <td>{{ gp.gpv }}</td>
+                        <td>{{ gp.position }}</td>
+                        <td>{{ gp.streak }}</td>
+                        {% if gp.valid %}
+                            {% if gp.valid == "Si" %}
+                                <td><span class="badge bg-success">Válido</span></td>
+                            {% endif %}
+                            {% if gp.valid == "No" %}
+                                <td><span class="badge bg-danger">Inválido</span></td>
+                            {% endif %}    
+                            {% if gp.valid == "Sin revisar" %}
+                                <td><span class="badge bg-warning">Sin revisar</span></td>
+                            {% endif %}
+                        {% else %}
+                            <td><span class="badge bg-warning">Sin revisar</span></td>
+                        {% endif %}
+                </tr>
+                    {% endfor %}
+            {% endif %}
+        </tbody>
+    </table>
+
+    <script>
+        $(document).ready(function() {
+            $('#dataTable').DataTable( {colReorder: true, responsive: true, searchBuilder: true});
+        });
+    </script>
+
+</div>
+
+{% endblock %}

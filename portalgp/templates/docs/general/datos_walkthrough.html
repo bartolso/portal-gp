@@ -1,0 +1,32 @@
+{% extends 'core/base.html' %}
+{% block content %}
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="{% url 'home' %}">Inicio</a></li>
+      <li class="breadcrumb-item"><a href="{% url 'docs' %}">Documentación</a></li>
+      <li class="breadcrumb-item"><a href="{% url 'docs_general_general' %}">General</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Guía para añadir datos</li>
+    </ol>
+</nav>
+<br>
+<h1>Documentación</h1>
+<br>
+<h2>Guía paso a paso para añadir datos</h2>
+<hr>
+<p>Esta guía muestra el proceso de añadir datos (G.P., M.B.D. y Drg) a la base de datos desde la exportación del archivo de texto de WhatsApp hasta tener los datos totalmente preparados y procesados para, por ejemplo, calcular notas o estadísticas.</p>
+<br>
+<h3>Paso 1. Exportar el chat de WhatsApp</h3>
+<p>Puedes buscar en Google como exportar un chat de WhatsApp a un archivo .txt</p>
+<p>Los <strong>nombres de contacto</strong> que aparecen en el .txt exportado son los mismos que tienes en tu teléfono. Portal G.P. no entiende si tienes añadido a Joaquín como "Joaaaaaa", así que deben configurarse unos alias para su correcta detección (hablar con Anton) o bien reemplazar todos los nombres en el archivo.</p>
+<h3>Paso 2. Cargar los datos</h3>
+<p>Dirígete a <a href="{% url 'wimport' %}">Importar datos</a> y sigue los pasos para cargar los datos. Una vez hayas subido el archivo, antes de definitivamente cargarlo a la base de datos podrás ver tres tablas de los G.P., M.B.D., y Drg que se han detectado. Ahora es el momento para comprobar si el archivo es correcto. Los datos que no sean válidos (como un falso M.B.D.) serán eliminados después de forma manual. Puedes ver más información sobre las problemáticas de detectar M.B.D. automáticamente <a href="">aquí</a>.</p>
+<p>Para subir los datos definitivamente a la base de datos pulsa "Subir a la base de datos". Este proceso puede llevar algún tiempo según la cantidad de datos. Sé paciente.</p>
+<h3>Paso 3. Actualizar los ID</h3>
+<p>Ahora los datos ya están cargados en la base de datos, pero no están conectados entre ellos. En resumen, los G.P., M.B.D. y Drg están conectados entre ellos. Por ejemplo, cada G.P. está conectado a su correspondiente M.B.D y Drg. Los M.B.D. también están conectados a su correspondiente Drg y viceversa. Este proceso puede hacerse de forma automática usando la herramienta <a href="{% url 'link_fk'%}">Enlazar IDs</a>.</p>
+<p>Esta herramienta trata de buscar las correspondencias entre los datos y conectarlos. También tiene algunas limitaciones: si, por ejemplo, para un cierto día en la base de datos hay dos M.B.D. registrados la herramienta Enlazar IDs no sabrá con cuál de los dos enlazar un G.P. y no tomará ninguna acción. Estos casos aparecerán en una notificación amarilla para que luego puedas ir a la base de datos y enlazarlos correctamente.</p>
+<h3>Paso 4. Determinar el puesto y racha de los G.P.</h3>
+<p>[Por hacer]</p>
+<h3>Paso 5. Calcular GPV</h3>
+<p>[Por hacer]</p>
+{% endblock %}

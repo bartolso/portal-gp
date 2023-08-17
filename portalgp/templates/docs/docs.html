@@ -1,0 +1,43 @@
+{% extends 'core/base.html' %}
+{% block content %}
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="{% url 'home' %}">Inicio</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Documentación</li>
+    </ol>
+</nav>
+<br>
+<h1 class="bi bi-file-earmark-text"> Documentación</h1>
+<br>
+<h2>Tabla de contenidos</h2>
+<hr>
+<ul>
+  <li><h5>General</h5></li>
+    <ul>
+      <li><a href="{% url 'docs_que_es_portal_gp' %}">¿Qué es Portal G.P.?</a></li>
+      <li><a href="{% url 'docs_general_info_importante' %}">Información importante</a></li>
+      <li><a href="{% url 'docs_general_datos_walkthrough' %}">Guía para añadir datos</a></li>
+      <li><a href="{% url 'docs_general_datos_walkthrough' %}">Copias de seguridad</a></li>
+    </ul>
+    <br>
+  <li><h5>Base de datos (pestaña Datos)</h5></li>
+    <ul>
+      <li><a href="{% url 'docs_db_gp' %}">G.P.</a></li>
+      <li><a href="{% url 'docs_db_mbd' %}">M.B.D.</a></li>
+      <li><a href="{% url 'docs_db_drg' %}">Drg</a></li>
+    </ul>
+    <br>
+  <li><h5>Herramientas</h5></li>
+    <ul>
+      <li><a href="{% url 'docs_wimport' %}">Importar datos de WhatsApp</a></li>
+      <li><a href="{% url 'docs_linkear_ids' %}">M.B.D.</a></li>
+    </ul>
+    <br>
+    <li><h5>Portal G.P.</h5></li>
+    <ul>
+      <li><a href="{% url 'docs_usuarios' %}">Usuarios</a></li>
+    </ul>
+    <br>
+</ul>
+{% endblock %}

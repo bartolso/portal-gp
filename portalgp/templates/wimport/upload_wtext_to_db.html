@@ -1,0 +1,17 @@
+{% extends 'core/base.html' %}
+{% block content %}
+
+<h1>Importar datos</h1>
+<br>
+<div class="card">
+    <h5 class="card-header">Resumen</h5>
+    <div class="card-body">
+        <p>Cantidad de G.P: {{ gp_amount }}</p>
+        <p>Cantidad de M.B.D.: {{ mbd_amount }}</p>
+        <p>Cantidad de Drg: {{ drg_amount }}</p>
+        <hr>
+        <p>Los datos han sido subidos a la base de datos. Es necesario linkear los ID entre los G.P., M.B.D. y Drg. Hazlo en <a href="{% url 'link_fk' %}">Herramientas > Linkear IDs</a></p>
+    </div>
+</div>
+
+{% endblock %}

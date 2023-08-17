@@ -1,0 +1,405 @@
+{% extends 'core/base.html' %}
+{% block content %}
+{% load static %}
+<h1>Vista diaria</h1>
+<br>
+<div class="container text-center">
+    <div class="row">
+      <div class="col">
+        <div class="card">
+            <div class="card-header">
+                <h2><strong><div id="selected-day-label" class="p-2">current-date</div></strong></h2>
+            </div>
+            <div class="card-body">
+                <span class="d-flex justify-content-center align-items-center">
+                    <a id="btn-day-previous" type="button" class="btn btn-primary p-2">Anterior</a>
+                    <input type="date" class="form-control p-2 mx-3 text-center" id="date-selector">
+                    <a id="btn-day-next" type="button" class="btn btn-primary p-2">Siguiente</a>
+                </span>
+            </div>
+        </div>
+        <br>
+        <div class="card">
+            <div class="card-header">
+                Validador
+            </div>
+            <div class="card-body">
+                <div class="container">
+                    <div class="row">
+                      <div class="col">
+                        <img src="{% static 'images/profile_pics/joaquin.jpg' %}" alt="" >         <a id="joaquin-gp" type="button" class="btn p-2 gp-button">G.P.</a>
+                      </div>
+                      <div class="col">
+                        <img src="{% static 'images/profile_pics/nerea.jpg' %}" alt="">         <a id="nerea-gp" type="button" class="btn p-2 gp-button">G.P.</a>
+                      </div>
+                      <div class="col">
+                        <img src="{% static 'images/profile_pics/laura.jpg' %}" alt="">         <a id="laura-gp" type="button" class="btn p-2 gp-button">G.P.</a>
+                      </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col">
+                          <img src="{% static 'images/profile_pics/aitor.jpg' %}" alt="">         <a id="aitor-gp" type="button" class="btn p-2 gp-button">G.P.</a>
+                        </div>
+                        <div class="col">
+                          <img src="{% static 'images/profile_pics/sergio.jpg' %}" alt="">         <a id="sergio-gp" type="button" class="btn p-2 gp-button">G.P.</a>
+                        </div>
+                        <div class="col">
+                          <img src="{% static 'images/profile_pics/anton.png' %}" alt="">         <a id="anton-gp" type="button" class="btn p-2 gp-button">G.P.</a>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col">
+                          <img src="{% static 'images/profile_pics/aina.jpg' %}" alt="">         <a id="aina-gp" type="button" class="btn p-2 gp-button">G.P.</a>
+                        </div>
+                        <div class="col">
+                          <img src="{% static 'images/profile_pics/diego.jpg' %}" alt="">         <a id="diego-gp" type="button" class="btn p-2 gp-button">G.P.</a>
+                        </div>
+                        <div class="col">
+                          <img src="{% static 'images/profile_pics/miranda.jpg' %}" alt="">         <a id="miranda-gp" type="button" class="btn p-2 gp-button">G.P.</a>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col">
+                          <img src="{% static 'images/profile_pics/paula.jpg' %}" alt="">         <a id="paula-gp" type="button" class="btn p-2 gp-button">G.P.</a>
+                        </div>
+                        <div class="col">
+                          <img src="{% static 'images/profile_pics/pablo.jpg' %}" alt="">         <a id="pablo-gp" type="button" class="btn p-2 gp-button">G.P.</a>
+                        </div>
+                        <div class="col">
+                          
+                        </div>
+                    </div>
+                  </div>
+            </div>
+        </div>
+        <br>
+      </div>
+      <div class="col">
+        <div class="card">
+            <div class="card-header">
+                Lista de G.P.
+            </div>
+            <div class="card-body">
+                <table id="dataTable" class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col" class="bi bi-person-circle"> Jugador</th>
+                            <th scope="col" class="bi bi-clock"> Hora</th>
+                            <th scope="col">GPV</th>
+                            <!-- <th scope="col">Posición</th>
+                            <th scope="col">Racha</th> -->
+                            <th scope="col">Validez</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <br>
+        
+      </div>
+      <div class="col">
+        <div class="card">
+            <div class="card-header">
+              Información
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">Datos del día</h5>
+              <ul class="text-start">
+                <li class="p-2"><strong>Hora del M.B.D.: </strong><span id="mbd_time">-</span></li>
+                <li class="p-2"><strong>Hora del Drg: </strong><span id="drg_time">-</span></li> 
+              </ul>
+              <hr>
+              <h5 class="card-title">Datos del mes</h5>
+              <ul class="text-start">
+                <li><strong>Faltas:</strong></li>
+                <li><strong>Jugadores eliminados:</strong> </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        
+    </div>
+</div>
+
+<style>
+    #date-selector::-webkit-datetime-edit {
+        display: none;
+    }
+    #date-selector {
+        width: 10%;
+    }
+</style>
+    
+<script>
+    var dataTable;
+    $(document).ready(function() {
+
+        var selectedDate = new Date();
+        updateDateSelector(selectedDate);
+        updateSelectedDay(selectedDate);
+        updateDayInfo();
+        updateValidator();
+        
+
+        $("#btn-day-previous").click(function() {
+            selectedDate.setDate(selectedDate.getDate() - 1);
+            updateDateSelector(selectedDate);
+            updateSelectedDay(selectedDate);
+            changeDate(0);
+            dataTable.draw();
+            updateDayInfo();
+            updateValidator();
+        });
+        $("#btn-day-next").click(function() {
+            selectedDate.setDate(selectedDate.getDate() + 1);
+            updateDateSelector(selectedDate);
+            updateSelectedDay(selectedDate);
+            changeDate(0);
+            dataTable.draw();
+            updateDayInfo();
+            updateValidator()
+        });
+
+        $("#date-selector").change(function() {
+            selectedDate = new Date($(this).val());
+            updateSelectedDay(selectedDate);
+            changeDate(0);
+            dataTable.draw();
+            updateDayInfo();
+            updateValidator()
+        });
+
+        $('.gp-button').click(function() {
+            let player_name = $(this).attr('id').slice(0, -3);
+
+            validateGP(player_name, dataTable=dataTable); //paso el datatable para poder actualizarlo una vez haya terminado ajax. si lo actualizo aquí no irá sincronizado...
+        });
+
+        let dataTable = $('#dataTable').DataTable({
+            processing: true,
+            serverSide: true,
+            responsive: true,
+            searching: false,
+            paging: false,
+            ordering: false,
+            //"dom": 'rtip',
+            ajax: {
+                url: "{% url 'get_day_gps_datatable' %}",
+                data: function (d) {
+                    d.page = $('#dataTable').DataTable().page.info().page + 1;
+                    d.selectedDate = $('#date-selector').val();
+                },
+                dataSrc: 'data',
+            },
+            columns: [
+            { 
+                    data: 'id',
+                    render: function(data, type, row) {
+                        data = '<a href="/gps/gp/' + data + '" type="button" class="btn btn-secondary btn-sm">' + data + '</a>';
+                        return data;
+                    }
+                },
+                { 
+                    data: 'person_name',
+                    render: function(data, type, row) {
+                        return data;
+                    }
+                },
+                { 
+                    data: 'time',
+                    render: function(data, type, row) {
+                        if (type === 'display') {
+                            var formattedTime = moment(data, 'HH:mm:ss').format('HH:mm');
+                        
+                            return formattedTime;
+                        }
+                        return data;
+                    }
+                },
+                { 
+                    data: 'gpv',
+                    render: function(data, type, row) {
+                        return data;
+                    }
+                },
+                /* { 
+                    data: 'position',
+                    render: function(data, type, row) {
+                        return data;
+                    }
+                },
+                { 
+                    data: 'streak',
+                    render: function(data, type, row) {
+                        return data;
+                    }
+                }, */
+                { 
+                    data: 'valid',
+                    render: function(data, type, row) {
+                        switch (data) {
+                            case 'Si':
+                                return '<td><span class="badge bg-success bi bi-check"> </span></td>';
+                                break;
+                            case 'No':
+                                return '<td><span class="badge bg-danger bi bi-x"> </span></td>';
+                                break;
+                            case 'Sin revisar':
+                                return '<td><span class="badge bg-warning bi bi-asterisk"> </span></td>';;
+                                break;
+                            default:
+                                return data;
+                                break;
+                        }
+                        return data;
+                    }
+                },
+                
+                
+            ],
+        });
+
+        
+    });
+
+    function validateGP(player_name, dataTable) {
+        var selectedDate = $("#date-selector").val();
+
+        $.ajax({
+            url: "{% url 'ajax_validate_gp' %}",
+            type: "GET",
+            data: { date: selectedDate, player_name: player_name },
+            success: function(data) {
+                
+                updateValidator();
+                dataTable.draw();
+            },
+            error: function(error) {
+                console.error("Error de mentira", error)
+            }
+        }).always(function() {
+        });
+    }
+
+    function updateDateSelector(date) {
+        var formattedDate = formatDate(date);
+        $("#date-selector").val(formattedDate);
+    };
+
+    function updateSelectedDay(date) {
+        var formattedDate = formatDate(date);
+        $("#selected-day-label").text(formattedDate);
+    };
+
+    function formatDate(date) {
+        var year = date.getFullYear();
+        var month = String(date.getMonth() + 1).padStart(2, '0');
+        var day = String(date.getDate()).padStart(2, '0');
+        return year + '-' + month + '-' + day;
+    }
+
+    function changeDate(offset) {
+        var selectedDate = $("#date-selector").val();
+        $.ajax({
+            url: "{% url 'get_day_data' %}",
+            type: "GET",
+            data: { date: selectedDate, offset: offset},
+            success: function(data) {
+                $("#selected-day-label").text(data.selected_day);
+            },
+            error: function(error) {
+                console.error("Error", error)
+            }
+        });
+    }
+
+    function updateValidator() {
+        var selectedDate = $("#date-selector").val();
+
+        $.ajax({
+            url: "{% url 'get_validator_data' %}",
+            type: "GET",
+            data: { date: selectedDate },
+            success: function(data) {
+                const names = ['joaquin', 'nerea', 'laura', 'aitor', 'sergio', 'anton', 'aina', 'diego', 'miranda', 'paula', 'pablo'];
+                console.log(data)
+                for (const name of names) {
+                    const valid = data[`${name}_valid`];
+                    const id = data[`${name}_id`];
+                    const $element = $(`#${name}-gp`);
+                    
+                    $element.removeClass("btn-success btn-danger btn-warning");
+                    
+                    switch (valid) {
+                    case 'Si':
+                        $element.addClass("btn-success")
+                        break;
+
+                    case 'No':
+                        $element.addClass("btn-danger")
+                        break;
+
+                    case 'Sin revisar':
+                        $element.addClass("btn-warning")
+                        break;
+                    }
+                }
+                
+            },
+            error: function(error) {
+                console.error("Error", error)
+            }
+        });
+    }
+
+    function updateDayInfo(offset) {
+        var selectedDate = $("#date-selector").val();
+        $.ajax({
+            url: "{% url 'get_day_info' %}",
+            type: "GET",
+            data: { date: selectedDate },
+            success: function(data) {
+                // MBD
+                if (data.mbd_id !== null) {
+                    let mbd_time = moment(data.mbd_time, 'HH:mm:ss').format('HH:mm');
+                    $("#mbd_time").html('<a href="/mbds/mbd/' + data.mbd_id + '" type="button" class="btn btn-secondary btn-sm">' + mbd_time + '</a>');
+                } else if (data.mbd_id == null) {
+                    $("#mbd_time").html('<td><span class="badge bg-primary">Sin M.B.D.</span></td>');
+                };
+                // DRG
+                if (data.drg_id !== null) {
+                    let drg_time = moment(data.drg_time, 'HH:mm:ss').format('HH:mm');
+                    $("#drg_time").html('<a href="/drgs/drg/' + data.drg_id + '" type="button" class="btn btn-secondary btn-sm">' + drg_time + '</a>');
+                } else if (data.drg_id == null) {
+                    $("#drg_time").html('<td><span class="badge bg-primary">Sin Drg</span></td>');
+                };
+            },
+            error: function(error) {
+                console.error("Error de mentira", error)
+            }
+        })
+    }
+
+    document.addEventListener("keydown", function(event) {
+        if (event.ctrlKey && event.key === "s") {
+            console.log("test")
+            event.preventDefault(); // Prevent the browser's default behavior (like saving the page)
+        }
+    });
+</script>
+
+
+
+
+
+
+
+
+{% endblock %}

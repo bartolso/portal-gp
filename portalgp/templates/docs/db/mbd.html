@@ -1,0 +1,17 @@
+{% extends 'core/base.html' %}
+{% block content %}
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="{% url 'home' %}">Inicio</a></li>
+      <li class="breadcrumb-item"><a href="{% url 'docs' %}">Documentación</a></li>
+      <li class="breadcrumb-item"><a>Base de datos</a></li>
+      <li class="breadcrumb-item active" aria-current="page">M.B.D.</li>
+    </ol>
+</nav>
+<br>
+<h1>Documentación</h1>
+<br>
+<h2>Tabla de contenidos</h2>
+<hr>
+{% endblock %}

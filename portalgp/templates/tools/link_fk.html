@@ -1,0 +1,18 @@
+{% extends 'core/base.html' %}
+{% block content %}
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="{% url 'home' %}">Inicio</a></li>
+      <li class="breadcrumb-item"><a href="{% url 'tools' %}">Herramientas</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Enlazar IDs</li>
+    </ol>
+</nav>
+<h1>Enlazar IDs</h1>
+<br>
+<form method="post" class="p-3">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit" class="btn btn-primary">Enlazar IDs</button>
+</form>
+{% endblock %}

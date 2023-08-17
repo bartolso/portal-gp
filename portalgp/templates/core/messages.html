@@ -1,0 +1,52 @@
+{% if messages %}
+
+{% for message in messages %}
+<script>
+  const toastElList = document.querySelectorAll('.toast')
+  const toastList = [...toastElList].map(toastEl => new bootstrap.Toast(toastEl, option))
+</script>
+  {% if message.level == DEFAULT_MESSAGE_LEVELS.DEBUG %}
+  <div class="toast-container position-fixed bottom-0 end-0 p-3">
+    <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="toast-header">
+        <img src="..." class="rounded me-2" alt="...">
+        <strong class="me-auto">Bootstrap</strong>
+        <small>11 mins ago</small>
+        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+      <div class="toast-body">
+        Hello, world! This is a toast message.
+      </div>
+    </div>
+  </div>
+  {% endif %}
+  {% if message.level == DEFAULT_MESSAGE_LEVELS.INFO %}
+    <div class="alert alert-primary alert-dismissible fade show" role="alert">
+      {{ message }}
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+  {% endif %}
+  {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+      {{ message }}
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+  {% endif %}
+  {% if message.level == DEFAULT_MESSAGE_LEVELS.WARNING %}
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+      {{ message }}
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+  {% endif %}
+  {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+      {{ message }}
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+  {% endif %}
+
+
+    
+{% endfor %}
+{% endif %}
+

@@ -1,0 +1,29 @@
+{% extends 'core/base.html' %}
+{% block content %}
+
+<h1>Importar datos</h1>
+<br>
+<div class="card">
+    <h5 class="card-header">¿Cómo funciona?</h5>
+    <div class="card-body">
+      <h5 class="card-title">Exportar el chat de WhatsApp</h5>
+      <p class="card-text">Primero debes exportar el chat del grupo a un archivo .txt y subirlo en esta página. Los nombres de los contactos son exportados con el mismo nombre que tienes agregada a la persona en tu teléfono, es decir que es posible que el sistema se encuentre con un nombre raro y no sepa quién es. Para eso hay algunos alias configurados para dar soporte a nombres raros que no son el nombre de pila sin más.</p>
+      <h5 class="card-title">Detección de datos</h5>
+      <p class="card-text">Los G.P., M.B.D. y Drg son extraídos del .txt usando distintas expresiones regulares.</p>
+      <h6 class="card-title">Detección de G.P.</h6>
+      <p class="card-text">Los G.P. son muy fáciles de detectar, se busca cualquier mensaje que contenga "gp" sin importar las mayúsculas.</p>
+      <h6 class="card-title">Detección de Drg</h6>
+      <p class="card-text">Los Drg se detectan de forma muy similar a los G.P. pero buscando "drg". También se ha añadido soporte a "Drg " (con el emoticono).</p>
+      <h6 class="card-title">Detección de M.B.D.</h6>
+      <p class="card-text">Esto es una mierda, pues un M.B.D. no es una cadena de texto regular sino que puede variar muchísimo. Por un lado existen los M.B.D. que son un mensaje clásico y por el otro un M.B.D. que contiene "buenos días", "buenas noches", "feliz día", etc. El sistema está configurado para detectar los mensajes clásicos (en catalán y castellano) y también cualquier mensaje del profeta que contenga alguna de esas locuciones. La problemática es que si alguna de esas locuciones está levemente distorsionada ya no es detectada, como por ejemplo "buenoz días" en vez de "buenos días". La solución fácil a esto es simplemente hardcodear todas las posibles combinaciones de locuciones. La solución correcta debería ser limitar al profeta cómo han de ser esas locuciones...</p>
+      <p>Otra problemática son los M.B.D. adjuntados con una imagen, pues al exportar el chat ese texto adjunto a la imagen se pierde.</p>
+      <p>Con los G.P. o Drg no debería haber problema alguno, pero es posible que los M.B.D. no sean todos detectados por lo descrito anteriormente. Simplemente pueden ser añadidos después de forma manual.</p>
+    </div>
+  </div>
+<form method="post" enctype="multipart/form-data" class="w-50 p-3">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Subir</button>
+</form>
+
+{% endblock %}

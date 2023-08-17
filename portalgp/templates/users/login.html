@@ -1,0 +1,30 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+
+<div class="col-md-6 offsset-md-3">
+    <h1>Iniciar sesión</h1>
+
+    {% if user.is_authenticated %}
+
+    <p>Ya has iniciado sesión.</p>
+
+    {% else %}
+    <form method="POST" action="{% url 'login' %}">
+        {% csrf_token %}
+        <form>
+            <div class="mb-3">
+              <input type="text" class="form-control" name="username" placeholder="Usuario" required>
+            </div>
+            <div class="mb-3">
+              <input type="password" class="form-control" name="password" placeholder="Contraseña" required>
+            </div>
+            <br>
+            <button type="submit" class="btn btn-primary">Iniciar sesión</button>
+          </form>
+    </form>
+
+    {% endif %}
+</div>
+
+{% endblock %}
