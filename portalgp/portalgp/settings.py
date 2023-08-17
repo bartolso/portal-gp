@@ -20,17 +20,8 @@ else:
 
 ALLOWED_HOSTS = ["*"]
 
-if in_dev:
-    RQ_QUEUES = {
-        'default': {
-            'HOST': 'localhost',
-            'PORT': 6379,
-            'DB': 0,
-            'DEFAULT_TIMEOUT': 360,
-        },
-    }
-else:
-    RQ_QUEUES = {
+
+RQ_QUEUES = {
     'default': {
         'HOST': '93.93.117.21',
         'PORT': 6379,

@@ -5,8 +5,9 @@ from django.utils import timezone
 from datetime import timedelta
 from django.shortcuts import get_object_or_404
 
-from .tasks import test_function
+from .tasks import update_streaks
 
+# update_positions() se podría mover a tasks.py
 @receiver(post_save, sender=GP)
 def update_positions(sender, instance, **kwargs):
     same_day_gps = GP.objects.filter(date=instance.date, valid="Si", locked=False).order_by("time")
@@ -27,8 +28,7 @@ def update_positions(sender, instance, **kwargs):
 
 @receiver(post_save, sender=GP)
 def update_streaks_job(sender, instance, **kwargs):
-    test_function.delay()
-
+    update_streaks.delay(sender, instance)
 
 post_save.connect(update_positions, sender=GP)
 post_save.connect(update_streaks_job, sender=GP)

@@ -3,7 +3,7 @@ from .models import GP
 from datetime import timedelta
 
 @job
-def update_streaks(sender, instance, **kwargs):
+def update_streaks(sender, instance):
     # la instancia solo se usa para seleccionar el mes concreto para actualizar
     same_month_gps = GP.objects.filter(date__month=instance.date.month, valid='Si', locked=False).order_by("date") # PONER VALID!!!!!!!!!!!!!
 
@@ -28,8 +28,4 @@ def update_streaks(sender, instance, **kwargs):
 
     same_month_invalid_gps = GP.objects.filter(date__month=instance.date.month, valid__in=["No", "Sin revisar"], locked=False)
 
-    same_month_invalid_gps.update(streak=None)   
-
-@job
-def test_function():
-    print("pruebaaaaaaaaaaaaaaaaaaaaaaaa")
+    same_month_invalid_gps.update(streak=None)
