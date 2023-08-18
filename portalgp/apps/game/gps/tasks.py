@@ -2,6 +2,26 @@ from django_rq import job
 from .models import GP 
 from datetime import timedelta
 
+from .scripts.gpv import GPV
+
+@job
+def update_positions(sender, instance):
+    same_day_gps = GP.objects.filter(date=instance.date, valid="Si", locked=False).order_by("time")
+    
+    position_map = {}
+    
+    position = 1
+    for gp in same_day_gps:
+        position_map[gp.pk] = position
+        position += 1
+
+    for pk, new_position in position_map.items():
+        same_day_gps.filter(pk=pk).update(position=new_position)
+
+    same_day_invalid_gps = GP.objects.filter(date=instance.date, valid__in=["Sin revisar", "No"], locked=False)
+
+    same_day_invalid_gps.update(position=None)
+
 @job
 def update_streaks(sender, instance):
     # la instancia solo se usa para seleccionar el mes concreto para actualizar
@@ -32,5 +52,18 @@ def update_streaks(sender, instance):
 
 @job
 def update_gpv(sender, instance):
-    # conseguir los datos primero
-    pass
+    gp_time = instance.time #tipo datetime.time
+    mbd_time = instance.mbd.time
+    drg_time = instance.mbd.drg.time
+    position = instance.position
+    streak = instance.streak
+
+    print("----------------------")
+    print(position)
+    print(streak)
+
+    gpv = GPV(hora_gp=gp_time, hora_mbd=mbd_time, hora_drg=drg_time, puesto=position, racha=streak)
+
+    gpv = gpv.get_gpv()
+
+    GP.objects.filter(pk=instance.pk).update(gpv=gpv)
