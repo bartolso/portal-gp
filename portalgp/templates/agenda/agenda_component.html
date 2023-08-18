@@ -1,0 +1,34 @@
+
+{% load static %}
+
+{% block content %}
+    <script src="{% static 'fullcalendar/dist/index.global.js' %}"></script>
+    <script src="{% static 'fullcalendar/packages/core/locales/es.global.js' %}"></script>
+    <!-- <script src="{% static 'fullcalendar/packages/bootstrap5/index.global.js' %}"></script> -->
+
+    <style>
+        a {
+            text-decoration: none; /* Remove underline */
+            color: inherit; /* Preserve original color */
+        }
+        .fc-day .fc-day-thu .fc-day-today .fc-daygrid-day {
+            background-color: red;
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var calendarEl = document.getElementById('calendar');
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                locale: 'es',
+                themeSystem: 'standard',
+                headerToolbar: { center: 'dayGridMonth,timeGridWeek,listMonth,multiMonthYear' },
+                events: '/agenda/events_json'
+            });
+            calendar.render();
+        });
+    </script>
+
+    <div id="calendar"></div>
+
+    
+{% endblock %}

@@ -18,5 +18,6 @@ urlpatterns = [
     path('', include('apps.gptests.urls')),
     path('', include('apps.stats.urls')),
     path('', include('apps.scores.urls')),
+    path('', include('apps.agenda.urls')),
     path('rq/', include(rq_urls)),
 ]

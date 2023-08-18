@@ -27,8 +27,8 @@ def update_positions(sender, instance, **kwargs):
     same_day_invalid_gps.update(position=None)
 
 @receiver(post_save, sender=GP)
-def update_streaks_job(sender, instance, **kwargs):
+def update_streaks_queue(sender, instance, **kwargs):
     update_streaks.delay(sender, instance)
 
 post_save.connect(update_positions, sender=GP)
-post_save.connect(update_streaks_job, sender=GP)
+post_save.connect(update_streaks_queue, sender=GP)
