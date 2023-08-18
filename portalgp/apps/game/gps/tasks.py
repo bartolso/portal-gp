@@ -29,3 +29,8 @@ def update_streaks(sender, instance):
     same_month_invalid_gps = GP.objects.filter(date__month=instance.date.month, valid__in=["No", "Sin revisar"], locked=False)
 
     same_month_invalid_gps.update(streak=None)
+
+@job
+def update_gpv(sender, instance):
+    # conseguir los datos primero
+    pass
