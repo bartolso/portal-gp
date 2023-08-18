@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib import messages
 from apps.game.gps.models import GP
 from apps.game.mbds.models import MBD
@@ -8,4 +8,8 @@ def home(request):
     gp_count = GP.objects.count()
     mbd_count = MBD.objects.count()
     drg_count = DRG.objects.count()
+
     return(render(request, 'home/home.html', {'gp_count': gp_count, 'mbd_count': mbd_count, 'drg_count': drg_count}))
+
+def home_start(request):
+    return render(request, 'home/home_start.html', {})
