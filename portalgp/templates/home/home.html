@@ -86,24 +86,26 @@
               L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                   attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
               }).addTo(map);
-              // penedes
               var marker = L.marker([41.2230414, 1.518593], {}).bindPopup('Penedès').openPopup().addTo(map);
-              // barcelona
               var marker = L.marker([41.3927673, 2.0577888], {}).bindPopup('Barcelona').openPopup().addTo(map);
-              // holanda
               var marker = L.marker([52.3547607, 4.7391535], {}).bindPopup('Amsterdam').openPopup().addTo(map);
-              // tandil
               var marker = L.marker([-37.3194474, -59.1839017], {}).bindPopup('Tandil').openPopup().addTo(map);
-              // sassari
               var marker = L.marker([40.7261907, 8.5049481], {}).bindPopup('Sassari').openPopup().addTo(map);
+              var marker = L.marker([45.436479, 12.322648], {}).bindPopup('Venecia').openPopup().addTo(map);
+              var marker = L.marker([47.495386, 19.045009], {}).bindPopup('Budapest').openPopup().addTo(map);
+              var marker = L.marker([48.209329, 16.372549], {}).bindPopup('Viena').openPopup().addTo(map);
+              var marker = L.marker([45.464187, 9.189485], {}).bindPopup('Milán').openPopup().addTo(map);
+              var marker = L.marker([45.406810, 11.875742], {}).bindPopup('Padova').openPopup().addTo(map);
           </script>
         </div>
       </div>
     </div>
   </div>
   <hr>
-  <h1 class="text-start bi bi-journal-bookmark-fill"> Agenda G.P.</h1>
-  <div>{% include 'agenda/agenda_component.html' %}</div>
+  <!-- <h1 class="text-start bi bi-journal-bookmark-fill"> Agenda G.P.</h1>
+  <div>{% include 'agenda/agenda_component.html' %}</div> -->
+
+  <!-- quito la agenda hasta uqe funcione bien en el móvil -->
 </div>
 
 

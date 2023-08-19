@@ -13,3 +13,6 @@ def home(request):
 
 def home_start(request):
     return render(request, 'home/home_start.html', {})
+
+def resistencia(request):
+    return render(request, 'home/resistencia.html', {})

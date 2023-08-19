@@ -1,4 +1,4 @@
-from django_rq import job
+from django_rq import job, get_queue
 from .models import GP 
 from datetime import timedelta
 
@@ -25,7 +25,7 @@ def update_positions(sender, instance):
 @job
 def update_streaks(sender, instance):
     # la instancia solo se usa para seleccionar el mes concreto para actualizar
-    same_month_gps = GP.objects.filter(date__month=instance.date.month, valid='Si', locked=False).order_by("date") # PONER VALID!!!!!!!!!!!!!
+    same_month_gps = GP.objects.filter(date__month=instance.date.month, valid='Si', locked=False).order_by("date")
 
     list_of_names = GP.objects.values_list('person__name', flat=True).distinct()
    
@@ -52,18 +52,11 @@ def update_streaks(sender, instance):
 
 @job
 def update_gpv(sender, instance):
-    gp_time = instance.time #tipo datetime.time
-    mbd_time = instance.mbd.time
-    drg_time = instance.mbd.drg.time
-    position = instance.position
-    streak = instance.streak
+    pass
+    
 
-    print("----------------------")
-    print(position)
-    print(streak)
+queue = get_queue()
 
-    gpv = GPV(hora_gp=gp_time, hora_mbd=mbd_time, hora_drg=drg_time, puesto=position, racha=streak)
-
-    gpv = gpv.get_gpv()
-
-    GP.objects.filter(pk=instance.pk).update(gpv=gpv)
+queue.enqueue(update_positions)
+queue.enqueue(update_streaks)
+queue.enqueue(update_gpv)
