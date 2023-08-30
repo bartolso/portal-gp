@@ -1,0 +1,35 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block content %}
+
+
+<h1>Acerca de</h1>
+<p>Portal G.P. es un espacio virtual para el Juego de "Gracias, Pablo". En Portal G.P. se encuentra una base de datos del Juego: todos los G.P., M.B.D., Drg, faltas así también todas sus propiedades: momento en el que se envían, GPV en los G.P.s, etc.</p>
+<p>Portal G.P. es un proyecto de código abierto: cualquier jugador puede contribuir al desarrollo de Portal G.P. o bien ver exactamente el funcionamiento (por razones de transparencia con los ránkings, notas, estadísticas, etc.).</p>
+<a href="https://github.com/bartolso/portal-gp" class="bi bi-github"> GitHub</a>
+<hr>
+<h3>Software</h3>
+<ul>
+    <li><a href="https://www.djangoproject.com/">Django</a></li>
+    <ul>
+        <li><a href="https://gunicorn.org/">Gunicorn</a></li>
+        <li><a href="https://www.nginx.com/">Nginx</a></li>
+        <li><a href="https://github.com/rq/django-rq">django-rq</a></li>
+        <li><a href="https://redis.io/">Redis</a></li>
+    </ul>
+    <li>Librerías</li>
+    <ul>
+        <li><a href="https://getbootstrap.com/">Bootstrap</a></li>
+        <li><a href="https://datatables.net/">Datatables</a></li>
+        <li><a href="https://fullcalendar.io/">FullCalendar</a></li>
+        <li><a href="https://leafletjs.com/">Leaflet</a></li>
+        <li><a href="https://momentjs.com/">Moment.js</a></li>
+    </ul>
+    <li>Base de datos</li>
+    <ul>
+        <li><a href="https://www.mysql.com/">MySQL</a></li>
+    </ul>  
+</ul>
+
+{% endblock %}

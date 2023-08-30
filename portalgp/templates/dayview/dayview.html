@@ -3,7 +3,14 @@
 {% load static %}
 <h1>Vista diaria</h1>
 <br>
+
 <div class="container text-center">
+    <div class="card">
+        <div class="card-body text-start">
+            <a id="btn-update" type="button" class="btn btn-primary p-2 bi bi-arrow-clockwise"> Actualizar</a>
+        </div>
+    </div>
+    <br>
     <div class="row">
       <div class="col">
         <div class="card">
@@ -123,7 +130,9 @@
               </ul>
             </div>
           </div>
+          
         </div>
+        
         
     </div>
 </div>
@@ -146,8 +155,16 @@
         updateSelectedDay(selectedDate);
         updateDayInfo();
         updateValidator();
-        
 
+        $("#btn-update").click(function() {
+            updateDateSelector(selectedDate);
+            updateSelectedDay(selectedDate);
+            changeDate(0);
+            dataTable.draw();
+            updateDayInfo();
+            updateValidator();
+        });
+        
         $("#btn-day-previous").click(function() {
             selectedDate.setDate(selectedDate.getDate() - 1);
             updateDateSelector(selectedDate);
@@ -394,12 +411,5 @@
         }
     });
 </script>
-
-
-
-
-
-
-
 
 {% endblock %}

@@ -12,8 +12,10 @@ def home(request):
     return(render(request, 'home/home.html', {'gp_count': gp_count, 'mbd_count': mbd_count, 'drg_count': drg_count}))
 
 def home_start(request):
-    return redirect('resistencia')
     return render(request, 'home/home_start.html', {})
 
 def resistencia(request):
     return render(request, 'home/resistencia.html', {})
+
+def about(request):
+    return render(request, 'home/about.html', {})

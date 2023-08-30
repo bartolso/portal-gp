@@ -9,7 +9,6 @@ from .tasks import update_streaks, update_gpv, update_positions
 
 from .scripts.gpv import GPV
 
-# update_positions() se podría mover a tasks.py
 @receiver(post_save, sender=GP)
 def update_positions_queue(sender, instance, **kwargs):
     update_positions.delay(sender, instance)
