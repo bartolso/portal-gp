@@ -45,8 +45,10 @@ INSTALLED_APPS = [
     "apps.game.mbds",
     "apps.game.drgs",
     "apps.persons",
-    "apps.wimport"
-
+    "apps.wimport",
+    "apps.scores",
+    "apps.stats",
+    "apps.misc.enigdic"
 ]
 
 MIDDLEWARE = [

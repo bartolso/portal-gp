@@ -1,0 +1,31 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="container">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="{% url 'home' %}">Inicio</a></li>
+      <li class="breadcrumb-item"><a href="{% url 'scores' %}">Ránkings y puntuaciones</a></li>
+      <li class="breadcrumb-item" aria-current="page">Calcular puntuaciones</li>
+    </ol>
+  </nav>
+<br>
+<h1 class="">Calcular puntuaciones</h1>
+<div class="card">
+    <div class="card-body">
+      Esta herramienta permite sumar los GPVs de los G.P. de los jugadores en un período de tiempo especificado. Los resultados no se guardan en la base de datos.
+      <form method="post" enctype="multipart/form-data" class="w-50 p-3">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-success">Calcular</button>
+    </form>
+    </div>
+</div>
+
+</div>
+
+
+
+{% endblock %}

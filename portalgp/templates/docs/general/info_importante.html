@@ -1,7 +1,8 @@
 {% extends 'core/base.html' %}
 {% block content %}
 
-<nav aria-label="breadcrumb">
+<div class="container">
+  <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
       <li class="breadcrumb-item"><a href="{% url 'home' %}">Inicio</a></li>
       <li class="breadcrumb-item"><a href="{% url 'docs' %}">Documentación</a></li>
@@ -16,5 +17,7 @@
 <hr>
 <h3>Rendimiento de las páginas de G.P., M.B.D. y Drg</h3>
 <p>Al abrir alguna de estas páginas dónde se muestra una lista de todos los elementos puede pasar un periodo de tiempo muy largo según la cantidad de elementos que haya. Esto se debe a no saber programar además de tener pereza para ponerse a optmizarlo. Tendré que hacerlo igualmente porque eventualmente será inusable.</p>
+
+</div>
 
 {% endblock %}

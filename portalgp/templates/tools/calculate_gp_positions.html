@@ -1,7 +1,8 @@
 {% extends 'core/base.html' %}
 {% block content %}
 
-<nav aria-label="breadcrumb">
+<div class="container">
+  <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
       <li class="breadcrumb-item"><a href="{% url 'home' %}">Inicio</a></li>
       <li class="breadcrumb-item"><a href="{% url 'tools' %}">Herramientas</a></li>
@@ -15,4 +16,6 @@
   {{ form.as_p }}
   <button type="submit" class="btn btn-primary">Calcular posiciones de G.P.</button>
 </form>
+</div>
+
 {% endblock %}

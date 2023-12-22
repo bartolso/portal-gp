@@ -1,7 +1,8 @@
 {% extends 'core/base.html' %}
 {% block content %}
 
-<nav aria-label="breadcrumb">
+<div class="container">
+  <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
       <li class="breadcrumb-item"><a href="{% url 'home' %}">Inicio</a></li>
       <li class="breadcrumb-item"><a href="{% url 'docs' %}">Documentación</a></li>
@@ -29,4 +30,6 @@
 <p>[Por hacer]</p>
 <h3>Paso 5. Calcular GPV</h3>
 <p>[Por hacer]</p>
+</div>
+
 {% endblock %}

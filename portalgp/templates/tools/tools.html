@@ -1,7 +1,8 @@
 {% extends 'core/base.html' %}
 {% block content %}
 
-<nav aria-label="breadcrumb">
+<div class="container">
+  <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
       <li class="breadcrumb-item"><a href="{% url 'home' %}">Inicio</a></li>
       <li class="breadcrumb-item active" aria-current="page">Herramientas</li>
@@ -10,19 +11,25 @@
 <h1 class="bi bi-tools"> Herramientas</h1>
 <br>
 <h2>Base de datos</h2>
-<hr>
-
+<br>
 <ul class="list-group">
   <li class="list-group-item"><a href="{% url 'link_fk' %}">Enlazar IDs</a></li>
   <li class="list-group-item"><a href="{% url 'calculate_gp_positions_render' %}">Calcular posiciones de G.P.</a></li>
   <li class="list-group-item"><a href="{% url 'calculate_gp_streaks' %}">Calcular rachas de G.P.</a></li>
+  <li class="list-group-item"><a href="{% url 'calculate_gp_gpvs_render' %}">Calcular GPVs de G.P.</a></li>
+</ul>
+<br>
+<h2>Otros</h2>
+<br>
+<ul class="list-group">
+  <li class="list-group-item"><a href="{% url 'gpv_calculator' %}">Calculadora de GPV</a></li>
 </ul>
 <br>
 <h2>Copias de seguridad</h2>
-<hr>
-
+<br>
 <ul class="list-group">
   <li class="list-group-item"><a href="{% url 'link_fk' %}">Hacer una copia de seguridad</a></li>
-
 </ul>
+</div>
+
 {% endblock %}

@@ -1,0 +1,22 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="container">
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'home' %}">Inicio</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Elecciones</li>
+    </ol>
+</nav>  
+  <h1 class="text-start bi bi-envelope-paper"> Elecciones</h1>
+  <hr>
+  <h2>No hay elecciones activas en este momento.</h2>
+  <!-- <a href="{% url '29oct' %}" type="button" class="btn btn-primary bi bi-router"> Voto telemático</a> -->
+  <br>
+  
+  </div>
+</div>
+
+{% endblock %}

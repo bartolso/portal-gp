@@ -1,6 +1,7 @@
 {% if messages %}
 
-{% for message in messages %}
+<div class="container">
+  {% for message in messages %}
 <script>
   const toastElList = document.querySelectorAll('.toast')
   const toastList = [...toastElList].map(toastEl => new bootstrap.Toast(toastEl, option))
@@ -49,4 +50,6 @@
     
 {% endfor %}
 {% endif %}
+</div>
+
 

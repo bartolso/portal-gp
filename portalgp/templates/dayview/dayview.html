@@ -1,18 +1,33 @@
 {% extends 'core/base.html' %}
 {% block content %}
 {% load static %}
-<h1>Vista diaria</h1>
-<br>
 
-<div class="container text-center">
+<style>
+
+    .dayview-container {
+        margin-left: 20px !important;
+        margin-right: 20px !important;
+        padding-left: 20px !important;
+        padding-right: 20px !important;
+    }
+
+</style>
+
+<div class="dayview-container">
+    <h1>Vista diaria</h1>
+<br>
+<div class="text-center" style="margin: 0; padding: 0;">
     <div class="card">
-        <div class="card-body text-start">
-            <a id="btn-update" type="button" class="btn btn-primary p-2 bi bi-arrow-clockwise"> Actualizar</a>
+        <div class="card-body">
+            <div class="text-start">
+                <a id="btn-update" type="button" class="btn btn-primary p-2 bi bi-arrow-clockwise"> Actualizar panel</a>
+                <a id="btn-update_gpv" type="button" class="btn btn-warning p-2 bi bi-arrow-clockwise"> Actualizar GPVs</a>
+            </div>
         </div>
     </div>
     <br>
     <div class="row">
-      <div class="col">
+        <div class="col">
         <div class="card">
             <div class="card-header">
                 <h2><strong><div id="selected-day-label" class="p-2">current-date</div></strong></h2>
@@ -31,60 +46,60 @@
                 Validador
             </div>
             <div class="card-body">
-                <div class="container">
+                <div class=""> <!-- class container quitada arregla lo de los botones -->
                     <div class="row">
-                      <div class="col">
+                        <div class="col">
                         <img src="{% static 'images/profile_pics/joaquin.jpg' %}" alt="" >         <a id="joaquin-gp" type="button" class="btn p-2 gp-button">G.P.</a>
-                      </div>
-                      <div class="col">
+                        </div>
+                        <div class="col">
                         <img src="{% static 'images/profile_pics/nerea.jpg' %}" alt="">         <a id="nerea-gp" type="button" class="btn p-2 gp-button">G.P.</a>
-                      </div>
-                      <div class="col">
+                        </div>
+                        <div class="col">
                         <img src="{% static 'images/profile_pics/laura.jpg' %}" alt="">         <a id="laura-gp" type="button" class="btn p-2 gp-button">G.P.</a>
-                      </div>
-                    </div>
-                    <br>
-                    <div class="row">
-                        <div class="col">
-                          <img src="{% static 'images/profile_pics/aitor.jpg' %}" alt="">         <a id="aitor-gp" type="button" class="btn p-2 gp-button">G.P.</a>
-                        </div>
-                        <div class="col">
-                          <img src="{% static 'images/profile_pics/sergio.jpg' %}" alt="">         <a id="sergio-gp" type="button" class="btn p-2 gp-button">G.P.</a>
-                        </div>
-                        <div class="col">
-                          <img src="{% static 'images/profile_pics/anton.png' %}" alt="">         <a id="anton-gp" type="button" class="btn p-2 gp-button">G.P.</a>
                         </div>
                     </div>
                     <br>
                     <div class="row">
                         <div class="col">
-                          <img src="{% static 'images/profile_pics/aina.jpg' %}" alt="">         <a id="aina-gp" type="button" class="btn p-2 gp-button">G.P.</a>
+                            <img src="{% static 'images/profile_pics/aitor.jpg' %}" alt="">         <a id="aitor-gp" type="button" class="btn p-2 gp-button">G.P.</a>
                         </div>
                         <div class="col">
-                          <img src="{% static 'images/profile_pics/diego.jpg' %}" alt="">         <a id="diego-gp" type="button" class="btn p-2 gp-button">G.P.</a>
+                            <img src="{% static 'images/profile_pics/sergio.jpg' %}" alt="">         <a id="sergio-gp" type="button" class="btn p-2 gp-button">G.P.</a>
                         </div>
                         <div class="col">
-                          <img src="{% static 'images/profile_pics/miranda.jpg' %}" alt="">         <a id="miranda-gp" type="button" class="btn p-2 gp-button">G.P.</a>
+                            <img src="{% static 'images/profile_pics/anton.png' %}" alt="">         <a id="anton-gp" type="button" class="btn p-2 gp-button">G.P.</a>
                         </div>
                     </div>
                     <br>
                     <div class="row">
                         <div class="col">
-                          <img src="{% static 'images/profile_pics/paula.jpg' %}" alt="">         <a id="paula-gp" type="button" class="btn p-2 gp-button">G.P.</a>
+                            <img src="{% static 'images/profile_pics/aina.jpg' %}" alt="">         <a id="aina-gp" type="button" class="btn p-2 gp-button">G.P.</a>
                         </div>
                         <div class="col">
-                          <img src="{% static 'images/profile_pics/pablo.jpg' %}" alt="">         <a id="pablo-gp" type="button" class="btn p-2 gp-button">G.P.</a>
+                            <img src="{% static 'images/profile_pics/diego.jpg' %}" alt="">         <a id="diego-gp" type="button" class="btn p-2 gp-button">G.P.</a>
                         </div>
                         <div class="col">
-                          
+                            <img src="{% static 'images/profile_pics/miranda.jpg' %}" alt="">         <a id="miranda-gp" type="button" class="btn p-2 gp-button">G.P.</a>
                         </div>
                     </div>
-                  </div>
+                    <br>
+                    <div class="row">
+                        <div class="col">
+                            <img src="{% static 'images/profile_pics/paula.jpg' %}" alt="">         <a id="paula-gp" type="button" class="btn p-2 gp-button">G.P.</a>
+                        </div>
+                        <div class="col">
+                            <img src="{% static 'images/profile_pics/pablo.jpg' %}" alt="">         <a id="pablo-gp" type="button" class="btn p-2 gp-button">G.P.</a>
+                        </div>
+                        <div class="col">
+                            
+                        </div>
+                    </div>
+                    </div>
             </div>
         </div>
         <br>
-      </div>
-      <div class="col">
+        </div>
+        <div class="col-md-5">
         <div class="card">
             <div class="card-header">
                 Lista de G.P.
@@ -110,32 +125,35 @@
         </div>
         <br>
         
-      </div>
-      <div class="col">
+        </div>
+        <div class="col-md-3">
         <div class="card">
             <div class="card-header">
-              Información
+                Información
             </div>
             <div class="card-body">
-              <h5 class="card-title">Datos del día</h5>
-              <ul class="text-start">
+                <h5 class="card-title">Datos del día</h5>
+                <ul class="text-start">
                 <li class="p-2"><strong>Hora del M.B.D.: </strong><span id="mbd_time">-</span></li>
                 <li class="p-2"><strong>Hora del Drg: </strong><span id="drg_time">-</span></li> 
-              </ul>
-              <hr>
-              <h5 class="card-title">Datos del mes</h5>
-              <ul class="text-start">
+                </ul>
+                <hr>
+                <h5 class="card-title">Datos del mes</h5>
+                <ul class="text-start">
                 <li><strong>Faltas:</strong></li>
                 <li><strong>Jugadores eliminados:</strong> </li>
-              </ul>
+                </ul>
             </div>
-          </div>
-          
+            </div>
+            
         </div>
         
         
     </div>
 </div>
+</div>
+
+
 
 <style>
     #date-selector::-webkit-datetime-edit {
@@ -145,6 +163,8 @@
         width: 10%;
     }
 </style>
+
+
     
 <script>
     var dataTable;
@@ -404,6 +424,7 @@
         })
     }
 
+    // shortcuts. en un futuro ya lo pondré
     document.addEventListener("keydown", function(event) {
         if (event.ctrlKey && event.key === "s") {
             console.log("test")

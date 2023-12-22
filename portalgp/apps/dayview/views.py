@@ -11,7 +11,6 @@ from apps.game.mbds.models import MBD
 from apps.game.drgs.models import DRG
 
 def day_view(request):
-    messages.info(request, "Lee la documentación para aprender a usar la vista diaria.")
     return render(request, 'dayview/dayview.html', {})
 
 def get_day_data(request):

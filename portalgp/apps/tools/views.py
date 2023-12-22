@@ -1,11 +1,16 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
+from django.http import JsonResponse
+
+from datetime import time
 
 from apps.game.gps.models import GP
 from apps.game.mbds.models import MBD
 from apps.game.drgs.models import DRG
 
-from .forms import LinkFkForm, CalculateGPPositionsForm, CalculateGPStreaksForm
+from .forms import LinkFkForm, CalculateGPPositionsForm, CalculateGPStreaksForm, CalculateGPGPVsForm, GPVCalculatorForm
+
+from .scripts.gpv import GPV
 
 def tools(request):
     return render(request, 'tools/tools.html', {})
@@ -136,3 +141,107 @@ def calculate_gp_positions(request, start_date, end_date, ignore_locked=True, us
 
 def calculate_gp_streaks(request):
     pass
+
+def calculate_gp_gpvs_render(request):
+    form = CalculateGPGPVsForm(request.POST or None)
+    if request.user.is_authenticated:
+        if request.method == 'POST':
+            if form.is_valid():
+                start_date = form.cleaned_data['start_date']
+                end_date = form.cleaned_data['end_date']
+                ignore_locked = form.cleaned_data['ignore_locked']
+
+                calculate_gp_gpvs(request, use_range=True, start_date=start_date, end_date=end_date, ignore_locked=ignore_locked)
+
+                #messages.success(request, "Se han actualizado los GPVs de los G.P.")
+                return redirect('calculate_gp_gpvs_render')
+        return render(request, 'tools/calculate_gp_gpvs.html', {'form':form})
+    else:
+        messages.error(request, "Debes iniciar sesión")
+        return redirect("tools")
+
+def calculate_gp_gpvs(request, start_date, end_date, ignore_locked=True, use_range=True):
+    if request.user.is_authenticated:
+        gps_in_range = GP.objects.filter(date__range=(start_date, end_date))
+        logs = []
+        for gp in gps_in_range:
+
+            print("-----")
+            print(f"{gp.id}")
+
+            can_calculate_gpv = True
+            iteration_log = []
+            iteration_log.append(f"[ID {gp.id}]")
+
+            if gp.valid == 'Si':
+
+                gp_time = gp.time
+
+                if gp.mbd.time:
+                    mbd_time = gp.mbd.time
+                else:
+                    iteration_log.append(f"No tiene M.B.D. asignado")
+                    can_calculate_gpv = False
+
+                if gp.mbd.drg:
+                    drg_time = gp.mbd.drg.time
+                else:
+                    # cuando no existe drg, la "hora del drg" se establece a las 23:59
+                    drg_time = time(23, 59)
+                
+                if gp.position:
+                    position = gp.position
+                else:
+                    iteration_log.append(f"No tiene posición calculada")
+                    can_calculate_gpv = False
+                if gp.streak:
+                    streak = gp.streak
+                else:
+                    iteration_log.append(f"No tiene racha asignada")
+                    can_calculate_gpv = False
+
+                if can_calculate_gpv:
+                    gpv = GPV(hora_gp=gp_time, hora_mbd=mbd_time, hora_drg=drg_time, puesto=position, racha=streak)
+                    gpv = gpv.get_gpv()
+
+                    GP.objects.filter(pk=gp.pk).update(gpv=gpv)
+
+                    iteration_log = []
+                else:
+                    iteration_log.append(f"GPV NO CALCULADO")
+            else:
+                iteration_log.append(f"Inválido")
+
+            str_iteration_log = ', '.join(iteration_log)
+            logs.append(str_iteration_log)
+
+        if logs:
+            messages.warning(request, '\n'.join(logs))
+
+        messages.success(request, "Se han actualizado los GPVs de los G.P.")
+        return redirect('calculate_gp_gpvs_render')
+
+    else:
+        messages.error(request, "Debes iniciar sesión")
+        return redirect("tools")
+
+def gpv_calculator(request):
+    form = GPVCalculatorForm(request.POST or None)
+
+    if request.method == 'POST':
+            if form.is_valid():
+                gp_time = form.cleaned_data['gp_time']
+                mbd_time = form.cleaned_data['mbd_time']
+                drg_time = form.cleaned_data['drg_time']
+                position = form.cleaned_data['position']
+                streak = form.cleaned_data['streak']
+
+                gpv_obj = GPV(hora_gp=gp_time, hora_mbd=mbd_time, hora_drg=drg_time, puesto=position, racha=streak)
+
+                gpv_score = gpv_obj.get_gpv()
+                gpv_difficulty = gpv_obj.get_mbd_drg_difficulty
+                
+
+                return JsonResponse({'result': result})
+
+    return render(request, 'tools/gpv_calculator.html', {'form':form})

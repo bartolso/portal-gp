@@ -1,66 +1,69 @@
 {% extends 'core/base.html' %}
 {% block content %}
 
-<nav aria-label="breadcrumb">
-  <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a href="{% url 'home' %}">Inicio</a></li>
-    <li class="breadcrumb-item"><a href="{% url 'mbds' %}">M.B.D.</a></li>
-    <li class="breadcrumb-item active" aria-current="page">{{ mbd.id }}</li>
-  </ol>
-</nav>
-<br>
-<div class="card">
-  <h5 class="card-header">M.B.D. ID: {{ mbd.id }} 
-  {% if mbd.valid == "Si" %}
-    <span class="badge bg-success bi bi-check-lg">Válido</span>
-  {% endif %}
-  {% if mbd.valid == "No" %}
-    <span class="badge bg-danger bi bi-x-lg">Inválido</span>
-  {% endif %}
-  {% if mbd.valid == "Sin revisar" %}
-    <span class="badge bg-warning bi bi-asterisk">Sin revisar</span>
-  {% endif %}
-  {% if mbd.locked == True %}
-    <span class="badge bg-secondary bi bi-lock"> </span>    
-  {% endif %}
-  
-  
-  </h5>
-  <div class="card-body">
-    <p class="card-text"><strong>Día: </strong>{{ mbd.date}}</p>
-    <p class="card-text"><strong>Hora: </strong>{{ mbd.time}}</p>
-    <p class="card-text"><strong>Profeta: </strong>{{ mbd.person }}</p>
-    <p class="card-text"><strong>Mensaje: </strong>{{ mbd.message }}</p>
-    <p class="card-text"><strong>Drg: </strong>{{ mbd.drg.time }}</p>
-    <p class="card-text"><strong>Comentario: </strong>{{ mbd.comment }}</p>
-    <br>
-    <hr>
-    {% if mbd.drg %}
-    <a href="{% url 'drg' mbd.drg.id %}" type="button" class="btn btn-primary">Ver Drg</a>
-    {% else %}
-    <span class="badge text-bg-primary">Sin Drg</span>
+<div class="container">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="{% url 'home' %}">Inicio</a></li>
+      <li class="breadcrumb-item"><a href="{% url 'mbds' %}">M.B.D.</a></li>
+      <li class="breadcrumb-item active" aria-current="page">{{ mbd.id }}</li>
+    </ol>
+  </nav>
+  <br>
+  <div class="card">
+    <h5 class="card-header">M.B.D. ID: {{ mbd.id }} 
+    {% if mbd.valid == "Si" %}
+      <span class="badge bg-success bi bi-check-lg">Válido</span>
+    {% endif %}
+    {% if mbd.valid == "No" %}
+      <span class="badge bg-danger bi bi-x-lg">Inválido</span>
+    {% endif %}
+    {% if mbd.valid == "Sin revisar" %}
+      <span class="badge bg-warning bi bi-asterisk">Sin revisar</span>
+    {% endif %}
+    {% if mbd.locked == True %}
+      <span class="badge bg-secondary bi bi-lock"> </span>    
     {% endif %}
     
+    
+    </h5>
+    <div class="card-body">
+      <p class="card-text"><strong>Día: </strong>{{ mbd.date}}</p>
+      <p class="card-text"><strong>Hora: </strong>{{ mbd.time}}</p>
+      <p class="card-text"><strong>Profeta: </strong>{{ mbd.person }}</p>
+      <p class="card-text"><strong>Mensaje: </strong>{{ mbd.message }}</p>
+      <p class="card-text"><strong>Drg: </strong>{{ mbd.drg.time }}</p>
+      <p class="card-text"><strong>Comentario: </strong>{{ mbd.comment }}</p>
+      <br>
+      <hr>
+      {% if mbd.drg %}
+      <a href="{% url 'drg' mbd.drg.id %}" type="button" class="btn btn-primary">Ver Drg</a>
+      {% else %}
+      <span class="badge text-bg-primary">Sin Drg</span>
+      {% endif %}
+      
+    </div>
+  </div>
+  <br>
+  {% if user.is_authenticated %}
+  <div class="card">
+    <h5 class="card-header">Acciones</h5>
+    <div class="card-body">
+        <a href="{% url 'delete_mbd' mbd.id %}" type="button" class="btn btn-danger bi bi-trash3">Eliminar</a>
+        <a href="{% url 'update_mbd' mbd.id %}" type="button" class="btn btn-warning bi bi-pencil-square">Modificar</a>
+        <a type="button" class="btn btn-success bi bi-check-circle">Validar</a>
+  </div>
+  {% else %}
+  <div class="card">
+    <h5 class="card-header">Acciones</h5>
+    <div class="card-body">
+        <p>Debes <a href="{% url 'login' %}">iniciar sesión</a> para modificar este M.B.D.</p>
+  </div>
+  {% endif %}
+  
   </div>
 </div>
-<br>
-{% if user.is_authenticated %}
-<div class="card">
-  <h5 class="card-header">Acciones</h5>
-  <div class="card-body">
-      <a href="{% url 'delete_mbd' mbd.id %}" type="button" class="btn btn-danger bi bi-trash3">Eliminar</a>
-      <a href="{% url 'update_mbd' mbd.id %}" type="button" class="btn btn-warning bi bi-pencil-square">Modificar</a>
-      <a type="button" class="btn btn-success bi bi-check-circle">Validar</a>
-</div>
-{% else %}
-<div class="card">
-  <h5 class="card-header">Acciones</h5>
-  <div class="card-body">
-      <p>Debes <a href="{% url 'login' %}">iniciar sesión</a> para modificar este M.B.D.</p>
-</div>
-{% endif %}
 
-</div>
 
 
 

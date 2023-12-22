@@ -1,0 +1,41 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="container">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="{% url 'home' %}">Inicio</a></li>
+      <li class="breadcrumb-item"><a href="{% url 'scores' %}">Ránkings y puntuaciones</a></li>
+      <li class="breadcrumb-item" aria-current="page">Calcular puntuaciones</li>
+    </ol>
+  </nav>
+<br>
+<h1 class="">Resultados</h1>
+<div class="card">
+    <div class="card-body">
+      <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Jugador</th>
+                <th scope="col">Puntuación</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in results %}
+                <tr>
+                    <td>{{ item.0 }}</td> <!-- Display the string -->
+                    <td>{{ item.1 }}</td> <!-- Display the integer -->
+                </tr>
+            {% endfor %}
+        </tbody>
+      </table>
+    </div>
+</div>
+
+</div>
+
+
+
+{% endblock %}

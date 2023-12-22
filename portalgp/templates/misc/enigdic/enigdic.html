@@ -1,0 +1,178 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block content %}
+<head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script>
+    $(document).ready(function(){
+        function updateContent() {
+            $.ajax({
+                url: '{% url "get_cards" %}', 
+                type: 'GET',
+                dataType: 'json',
+                success: function(data) {
+                    for (let key in data) {
+                      let value = data[key]
+                      console.log(key)
+                      console.log(value)
+
+                      switch (value) {
+                        case 'roja':
+                          $("#card1").text("🟥")
+                      }
+                     
+                    }
+                    //$('#card1').text("test")
+
+                },
+                error: function(xhr, status, error) {
+                    console.error(error);
+                }
+            });
+        }
+        
+        updateContent();
+    });
+  </script>
+  
+</head>
+<style>
+    /* Custom CSS to make squares */
+    .cell {
+        font-size: 50px;
+    }
+
+</style>
+
+<div class="container">
+    <h1>Enigma de diciembre</h1>
+    <br>
+    <div class="container justify-content-center">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="container text-center d-none d-md-block">
+                            <div class="row">
+                              <div class="col cell" id="card1">
+                                🟥
+                              </div>
+                              <div class="col cell" id="card2">
+                                🟥
+                              </div>
+                              <div class="col cell" id="card3">
+                                🟩
+                              </div>
+                              <div class="col cell" id="card5">
+                                🟥
+                              </div>
+                              <div class="col cell" id="card6">
+                                🟥
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="col cell" id="card7">
+                                🟥
+                              </div>
+                              <div class="col cell" id="card8">
+                                🟩
+                              </div>
+                              <div class="col cell" id="card9">
+                                🟥
+                              </div>
+                              <div class="col cell" id="card10">
+                                🟥
+                              </div>
+                              <div class="col cell" id="card11">
+                                🟩
+                              </div>
+                            </div>
+                        </div>
+                        <div class="container text-center d-md-none">
+                            <div class="row">
+                                <div class="col-6 cell">
+                                  🟥
+                                </div>
+                                <div class="col-6 cell">
+                                  🟥
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6 cell">
+                                  🟥
+                                </div>
+                                <div class="col-6 cell">
+                                  🟥
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6 cell">
+                                  🟥
+                                </div>
+                                <div class="col-6 cell">
+                                  🟥
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6 cell">
+                                  🟥
+                                </div>
+                                <div class="col-6 cell">
+                                  🟥
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6 cell">
+                                  🟥
+                                </div>
+                                <div class="col-6 cell">
+                                  🟥
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card">
+                    <div class="card-header">
+                      Modificar mi carta
+                    </div>
+                    <div class="card-body">
+                      <p class="card-text">Usa los botones de abajo para seleccionar tu carta.</p>
+                      <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                        <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
+                        <label class="btn btn-outline-secondary" for="btnradio1">🟩</label>
+                      
+                        <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
+                        <label class="btn btn-outline-secondary" for="btnradio2">🟥</label>
+                      </div>
+                    </div>
+                  </div>
+            </div>
+        </div>
+        <br>
+        <div class="card">
+            <h5 class="card-header">Registro</h5>
+            <div class="card-body">
+                <div style="height: 300px; overflow-y: scroll;">
+                    <ul>
+                        <li>[2-12-23 18:45] Alguien ha cambiado su carta a 🟥</li>
+                        <li>[2-12-23 18:45] Alguien ha cambiado su carta a 🟥</li>
+                        <li>[2-12-23 18:45] Alguien ha cambiado su carta a 🟥</li>
+                        <li>[2-12-23 18:45] Alguien ha cambiado su carta a 🟥</li>
+                        <li>item de prueba</li>
+                        
+                    </ul>
+                </div>
+
+            </div>
+          </div>
+
+
+    </div>
+</div>
+
+
+{% endblock %}

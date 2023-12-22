@@ -19,7 +19,10 @@ def update_streaks_queue(sender, instance, **kwargs):
 
 @receiver(post_save, sender=GP)
 def update_gpv_queue(sender, instance, **kwargs):
-    update_gpv.delay(sender, instance)
+    #update_gpv.delay(sender, instance)
+    pass
+
+
 
 
 post_save.connect(update_positions_queue, sender=GP)

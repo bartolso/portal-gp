@@ -1,6 +1,7 @@
 {% extends 'core/base.html' %}
 {% block content %}
-<nav aria-label="breadcrumb">
+<div class="container">
+  <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
       <li class="breadcrumb-item"><a href="{% url 'home' %}">Inicio</a></li>
       <li class="breadcrumb-item"><a href="{% url 'drgs' %}">Drg</a></li>
@@ -18,5 +19,7 @@
     <button type="submit" class="btn btn-secondary">Agregar Drg</button>
 
 </form>
+</div>
+
 
 {% endblock %}

@@ -19,5 +19,7 @@ urlpatterns = [
     path('', include('apps.stats.urls')),
     path('', include('apps.scores.urls')),
     path('', include('apps.agenda.urls')),
+    path('', include('apps.elections.urls')),
+    path('', include('apps.misc.enigdic.urls')),
     path('rq/', include(rq_urls)),
 ]

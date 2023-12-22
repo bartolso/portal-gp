@@ -100,7 +100,7 @@ class WText:
     def get_mbds(self):
         all_messages = []
 
-        hardcoded_messages_string = '|'.join(HARDCODED_MBD_MESSAGES)
+        hardcoded_mbd_messages_string = '|'.join(HARDCODED_MBD_MESSAGES)
         for profetazgo in self.profetazgos:
             profeta_name = profetazgo[0]
             start_date = datetime.strptime(profetazgo[1], "%d/%m/%Y").date()
@@ -112,7 +112,7 @@ class WText:
             else:
                 end_date = datetime.strptime(profetazgo[2], "%d/%m/%Y").date()
 
-            pattern = fr"(\d+/\d+/\d+), (\d+:\d+) - ({profeta_name}): (.*buenas noches.*|.*Buenas noches.*|.*Feliz día.*|.*feliz día.*|.*bon dia.*|.*buenos días.*|.*buenos dias.*|.*bondiarodalies.*|{hardcoded_messages_string})" 
+            pattern = fr"(\d+/\d+/\d+), (\d+:\d+) - ({profeta_name}): (.*buenas noches.*|.*Buenas noches.*|.*Feliz día.*|.*feliz día.*|.*bon dia.*|.*buenos días.*|.*buenos dias.*|.*bondiarodalies.*|{hardcoded_mbd_messages_string})" 
             aliases_replaced_text = self.replace_with_aliases(self.text, self.aliases)
             messages = re.findall(pattern, aliases_replaced_text, re.MULTILINE)
 

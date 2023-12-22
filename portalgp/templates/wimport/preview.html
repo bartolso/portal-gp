@@ -1,7 +1,8 @@
 {% extends 'core/base.html' %}
 {% block content %}
 
-<h1>Importar datos</h1>
+<div class="container">
+    <h1>Importar datos</h1>
 <h3>Revisa los datos</h3>
 <br>
 <p>Estos son los datos encontrados en el .txt.</p>
@@ -117,6 +118,8 @@
 <br>
 <a href="{% url 'upload_wtext_to_db' %}" type="button" class="btn btn-primary">Subir datos a la base de datos</a>
 <br>
+</div>
+
 
 
 {% endblock %}

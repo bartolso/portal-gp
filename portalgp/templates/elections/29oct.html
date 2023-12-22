@@ -1,0 +1,22 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="container">
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'home' %}">Inicio</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'elections' %}">Elecciones</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Elecciones del 29 de octubre de 2023</li>
+    </ol>
+</nav>
+  <h1 class="text-start bi bi-envelope-paper"> Elecciones - 29 de octubre de 2023</h1>
+  <hr>
+  <h2 class="bi bi-router"> Voto telemático</h2>
+  <p>El voto telemático se abrirá el 29 de octubre a las 00:00 y finalizará el mismo día a las 23:59. Los resultados aparecerán de forma automática en esta misma página de Potal G.P.</p>
+  
+  </div>
+</div>
+
+{% endblock %}

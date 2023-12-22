@@ -1,138 +1,142 @@
 {% extends 'core/base.html' %}
 {% block content %}
-<nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-      <li class="breadcrumb-item"><a href="{% url 'home' %}">Inicio</a></li>
-      <li class="breadcrumb-item active" aria-current="page">M.B.D.</li>
-    </ol>
-</nav>
-<br>
-<h1 class="bi bi-database"> M.B.D.</h1>
-<br>
-<div>
-    <div>
-        <a href="{% url 'add_mbd' %}" type="button" class="btn btn-primary bi bi-plus-circle"> Añadir M.B.D.</a>
-    </div>
+
+<div class="container">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="{% url 'home' %}">Inicio</a></li>
+          <li class="breadcrumb-item active" aria-current="page">M.B.D.</li>
+        </ol>
+    </nav>
     <br>
+    <h1 class="bi bi-database"> M.B.D.</h1>
+    <br>
+    <div>
+        <div>
+            <a href="{% url 'add_mbd' %}" type="button" class="btn btn-primary bi bi-plus-circle"> Añadir M.B.D.</a>
+        </div>
+        <br>
+        
+        <table id="dataTable" class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Profeta</th>
+                    <th scope="col">Día</th>
+                    <th scope="col">Hora</th>
+                    <th scope="col">Hora Drg</th>
+                    <th scope="col">Bloqueado</th>
+                    <th scope="col">Validez</th>
+                </tr>
+            </thead>
+            <tbody>
     
-    <table id="dataTable" class="table table-striped">
-        <thead>
-            <tr>
-                <th scope="col">ID</th>
-                <th scope="col">Profeta</th>
-                <th scope="col">Día</th>
-                <th scope="col">Hora</th>
-                <th scope="col">Hora Drg</th>
-                <th scope="col">Bloqueado</th>
-                <th scope="col">Validez</th>
-            </tr>
-        </thead>
-        <tbody>
-
-        </tbody>
-    </table>
-
-
-    <script>
-    $(document).ready(function() {
-        $('#dataTable').DataTable({
-            processing: true,
-            serverSide: true,
-            responsive: true,
-            ajax: {
-                url: "{% url 'get_mbds_paginated_data' %}",
-                data: function (d) {
-                    d.page = $('#dataTable').DataTable().page.info().page + 1;
+            </tbody>
+        </table>
+    
+    
+        <script>
+        $(document).ready(function() {
+            $('#dataTable').DataTable({
+                processing: true,
+                serverSide: true,
+                responsive: true,
+                ajax: {
+                    url: "{% url 'get_mbds_paginated_data' %}",
+                    data: function (d) {
+                        d.page = $('#dataTable').DataTable().page.info().page + 1;
+                    },
+                    dataSrc: 'data',
                 },
-                dataSrc: 'data',
-            },
-            columns: [
-                { 
-                    data: 'id',
-                    render: function(data, type, row) {
-                        data = '<a href="/mbds/mbd/' + data + '" type="button" class="btn btn-secondary btn-sm">' + data + '</a>';
-                        return data;
-                    }
-                },
-                { 
-                    data: 'person_name',
-                    render: function(data, type, row) {
-                        return data;
-                    }
-                },
-                { 
-                    data: 'date',
-                    render: function(data, type, row) {
-                        return data;
-                    }
-                },
-                { 
-                    data: 'time',
-                    render: function(data, type, row) {
-                        if (type === 'display') {
-                            var formattedTime = moment(data, 'HH:mm:ss').format('HH:mm');
-                        
-                            return formattedTime;
+                columns: [
+                    { 
+                        data: 'id',
+                        render: function(data, type, row) {
+                            data = '<a href="/mbds/mbd/' + data + '" type="button" class="btn btn-secondary btn-sm">' + data + '</a>';
+                            return data;
                         }
-                        return data;
-                    }
-                },
-                { 
-                    data: 'drg_time',
-                    render: function(data, type, row) {
-                        if (data == null) {
-                            return '<td><span class="badge bg-primary">Sin Drg</span></td>'
+                    },
+                    { 
+                        data: 'person_name',
+                        render: function(data, type, row) {
+                            return data;
                         }
-                        if (type === 'display') {
-                            var data = moment(data, 'HH:mm:ss').format('HH:mm');
+                    },
+                    { 
+                        data: 'date',
+                        render: function(data, type, row) {
+                            return data;
                         }
-                        data = '<a href="/drgs/drg/' + row.drg_id + '" type="button" class="btn btn-secondary btn-sm">' + data + '</a>';
-                        return data;
-                    }
-                },
-                { 
-                    data: 'locked',
-                    render: function(data, type, row) {
-                        switch (data) {
-                            case false:
-                                return '<td><span class="bi bi-unlock"></span></td>';
-                                break;
-                            case true:
-                                return '<td><span class="bi bi-lock"></span></td>';
-                                break;
-                            default:
-                                return data;
-                                break;
+                    },
+                    { 
+                        data: 'time',
+                        render: function(data, type, row) {
+                            if (type === 'display') {
+                                var formattedTime = moment(data, 'HH:mm:ss').format('HH:mm');
+                            
+                                return formattedTime;
+                            }
+                            return data;
                         }
-                        return data;
-                    }
-                },
-                { 
-                    data: 'valid',
-                    render: function(data, type, row) {
-                        switch (data) {
-                            case 'Si':
-                                return '<td><span class="badge bg-success bi bi-check-lg"> Válido</span></td>';
-                                break;
-                            case 'No':
-                                return '<td><span class="badge bg-danger bi bi-x-lg"> Inválido</span></td>';
-                                break;
-                            case 'Sin revisar':
-                                return '<td><span class="badge bg-warning bi bi-asterisk"> Sin revisar</span></td>';;
-                                break;
-                            default:
-                                return data;
-                                break;
+                    },
+                    { 
+                        data: 'drg_time',
+                        render: function(data, type, row) {
+                            if (data == null) {
+                                return '<td><span class="badge bg-primary">Sin Drg</span></td>'
+                            }
+                            if (type === 'display') {
+                                var data = moment(data, 'HH:mm:ss').format('HH:mm');
+                            }
+                            data = '<a href="/drgs/drg/' + row.drg_id + '" type="button" class="btn btn-secondary btn-sm">' + data + '</a>';
+                            return data;
                         }
-                        return data;
-                    }
-                },
-                
-            ],
+                    },
+                    { 
+                        data: 'locked',
+                        render: function(data, type, row) {
+                            switch (data) {
+                                case false:
+                                    return '<td><span class="bi bi-unlock"></span></td>';
+                                    break;
+                                case true:
+                                    return '<td><span class="bi bi-lock"></span></td>';
+                                    break;
+                                default:
+                                    return data;
+                                    break;
+                            }
+                            return data;
+                        }
+                    },
+                    { 
+                        data: 'valid',
+                        render: function(data, type, row) {
+                            switch (data) {
+                                case 'Si':
+                                    return '<td><span class="badge bg-success bi bi-check-lg"> Válido</span></td>';
+                                    break;
+                                case 'No':
+                                    return '<td><span class="badge bg-danger bi bi-x-lg"> Inválido</span></td>';
+                                    break;
+                                case 'Sin revisar':
+                                    return '<td><span class="badge bg-warning bi bi-asterisk"> Sin revisar</span></td>';;
+                                    break;
+                                default:
+                                    return data;
+                                    break;
+                            }
+                            return data;
+                        }
+                    },
+                    
+                ],
+            });
         });
-    });
-    </script>
-
+        </script>
+    
+    </div>
 </div>
+
 
 {% endblock %}

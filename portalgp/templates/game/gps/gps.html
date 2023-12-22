@@ -1,40 +1,43 @@
 {% extends 'core/base.html' %}
 {% block content %}
-<nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-      <li class="breadcrumb-item"><a href="{% url 'home' %}">Inicio</a></li>
-      <li class="breadcrumb-item active" aria-current="page">G.P.</li>
-    </ol>
-</nav>
-<br>
-<h1 class="bi bi-database"> G.P.</h1>
-<br>
-<div>
-    <div>
-        <a href="{% url 'add_gp' %}" type="button" class="btn btn-primary bi bi-plus-circle"> Añadir G.P.</a>
-    </div>
+<div class="container">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="{% url 'home' %}">Inicio</a></li>
+          <li class="breadcrumb-item active" aria-current="page">G.P.</li>
+        </ol>
+    </nav>
     <br>
+    <h1 class="bi bi-database"> G.P.</h1>
+    <br>
+    <div>
+        <div>
+            <a href="{% url 'add_gp' %}" type="button" class="btn btn-primary bi bi-plus-circle"> Añadir G.P.</a>
+        </div>
+        <br>
+        
+        <table id="dataTable" class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Jugador</th>
+                    <th scope="col">Día</th>
+                    <th scope="col">Hora</th>
+                    <th scope="col">Hora M.B.D.</th>
+                    <th scope="col">Hora Drg</th>
+                    <th scope="col">GPV</th>
+                    <th scope="col">Puesto</th>
+                    <th scope="col">Racha</th>
+                    <th scope="col">Bloqueado</th>
+                    <th scope="col">Validez</th>
+                </tr>
+            </thead>
+            <tbody>
     
-    <table id="dataTable" class="table table-striped">
-        <thead>
-            <tr>
-                <th scope="col">ID</th>
-                <th scope="col">Jugador</th>
-                <th scope="col">Día</th>
-                <th scope="col">Hora</th>
-                <th scope="col">Hora M.B.D.</th>
-                <th scope="col">Hora Drg</th>
-                <th scope="col">GPV</th>
-                <th scope="col">Puesto</th>
-                <th scope="col">Racha</th>
-                <th scope="col">Bloqueado</th>
-                <th scope="col">Validez</th>
-            </tr>
-        </thead>
-        <tbody>
+            </tbody>
+        </table>
+</div>
 
-        </tbody>
-    </table>
 
 
 <script>
