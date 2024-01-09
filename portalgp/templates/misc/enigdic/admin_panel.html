@@ -1,0 +1,39 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        
+    </script>
+</head>
+<div class="container">
+    <div class="card">
+        <div class="card-header">
+          Panel de administración
+        </div>
+        
+        <div class="card-body">
+            <div style="margin: 5px;">
+                <a href="{% url 'enigdic' %}" class="btn btn-secondary">volver al juego</a>
+                <a href="{% url 'skip_turn' %}" class="btn btn-primary">pasar turno</a>
+            </div>
+            <div style="margin: 5px;">
+                <a href="{% url 'restart_game' %}" class="btn btn-danger">reiniciar juego</a>
+                <a href="#" class="btn btn-warning">finalizar juego</a>
+            </div>
+            <p>cuidado con pulsar los botones estos; no hay confirmación una vez pulsados</p>
+            <br>
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit">Enviar</button>
+            </form>
+            <img src="{% static 'images/homero-simpsons-en-la-planta.jpg' %}" alt="" width=30%>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

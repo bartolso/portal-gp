@@ -22,11 +22,12 @@ ALIASES = {
     "Miranda holanda:": "Miranda:"
 }
 
-# Formato: ['Profeta', 'fecha_inicio', 'fecha_fin']
+# Formato: ['Profeta', 'fecha_inicio', 'fecha_fin'] dejar en blanco la fecha actualidad
 PROFETAZGOS = [
     ['Pablo', '08/03/2022', '11/04/2023'],
     ['Laura', '18/04/2023', '10/06/2023'],
-    ['Nerea', '20/06/2023', '']
+    ['Nerea', '20/06/2023', '20/09/2023'],
+    ['Aitor', '10/10/2023', ''],
 ]
 
 VALID_GP_STRINGS = ['gp', 'GP', 'Gp', 'gP'] # no implementado
@@ -77,7 +78,6 @@ class WText:
         """
             Devuelve una lista de tuples así:
             ('Fecha', 'Hora', 'Jugador', 'Mensaje gp')
-
         """
         pattern1 = r"(\d+/\d+/\d+), (\d+:\d+) - (\w+): (gp|Gp|GP)" 
         pattern2 = '(\d+/\d+/\d+, \d+:\d+\d+) - (.*?): (gp$|Gp$|GP$)'
@@ -112,7 +112,7 @@ class WText:
             else:
                 end_date = datetime.strptime(profetazgo[2], "%d/%m/%Y").date()
 
-            pattern = fr"(\d+/\d+/\d+), (\d+:\d+) - ({profeta_name}): (.*buenas noches.*|.*Buenas noches.*|.*Feliz día.*|.*feliz día.*|.*bon dia.*|.*buenos días.*|.*buenos dias.*|.*bondiarodalies.*|{hardcoded_mbd_messages_string})" 
+            pattern = fr"(\d+/\d+/\d+), (\d+:\d+) - ({profeta_name}): (.*buenas noches.*|.*Buenas noches.*|.*Feliz dia.*|.*Feliz día.*|.*feliz día.*|.*feliz dia.*|.*bon dia.*|.*buenos días.*|.*buenos dias.*|.*bondiarodalies.*|.*buenos dias!.*|.*Buenos días.*|{hardcoded_mbd_messages_string})" 
             aliases_replaced_text = self.replace_with_aliases(self.text, self.aliases)
             messages = re.findall(pattern, aliases_replaced_text, re.MULTILINE)
 

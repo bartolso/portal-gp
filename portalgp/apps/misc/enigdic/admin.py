@@ -1,3 +1,9 @@
 from django.contrib import admin
+from .models import *
 
-# Register your models here.
+admin.site.register(CardEntry)
+admin.site.register(Cards)
+admin.site.register(UserScore)
+admin.site.register(Prisopunto)
+admin.site.register(Turn)
+admin.site.register(Log)

@@ -1,0 +1,51 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block content %}
+<head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+            $('#footer').remove();
+            $('.navbar').remove();
+    });
+
+  </script>
+  
+</head>
+
+<div class="container" style="font-family:monospace">
+    <p style="color: white;">Has logrado inflitrarte a la la celda del lado y has conseguido ver que en este momento la carta de joaquín es roja.</p>
+    <br>
+    <a href="{% url 'enigdic' %}">Volver al juego</a>
+</div>
+<style>
+  body {
+    background-color: black;
+    background-repeat: repeat; /* Repeat the image to cover the entire background */
+    background-attachment: fixed; /* Fix the background while scrolling */
+    background-size: auto; /* Set background size to auto (actual image size) */
+  }
+
+  .card {
+    border-radius: 0;
+    border-width: 5px;
+    background-color: rgb(48, 48, 48);
+  }
+
+  .btn {
+    border-radius: 0;
+  }
+
+  .dark-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Adjust the alpha value for darkness (0.5 for 50% opacity) */
+  }
+</style>
+
+
+{% endblock %}
