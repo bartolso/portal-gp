@@ -5,6 +5,43 @@
 <head>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script>
+    function id_to_player_name(id) {
+      switch(id) {
+        case '1':
+          return 'Joaquin'
+          break;
+        case '2':
+          return 'Nerea'
+          break;
+        case '3':
+          return 'Laura'
+          break;
+        case '4':
+          return 'Aitor'
+          break;
+        case '5':
+          return 'Sergio'
+          break;
+        case '6':
+          return 'Anton'
+          break;
+        case '7':
+          return 'Aina'
+          break;
+        case '8':
+          return 'Diego'
+          break;
+        case '9':
+          return 'Miranda'
+          break;
+        case '10':
+          return 'Paula'
+          break;
+        case '11':
+          return 'Pablo'
+          break;
+      }
+    }
     function updateContent() {
             $.ajax({
                 url: '{% url "get_cards" %}', 
@@ -38,6 +75,7 @@
                     updateLogs();
                     updateCardSelectorBtn();
                     updateInfo();
+                    updateScoreboard();
                 },
                 error: function(xhr, status, error) {
                     console.error(error);
@@ -71,6 +109,26 @@
         },
         error: function(error){
           console.log("ajax error")
+        }
+      });
+    }
+
+    function updateScoreboard() {
+      $.ajax({
+        type: "GET",
+        url: '{% url "get_scoreboard" %}',
+        success: function(data){
+          let scoreboard_json = data;
+          var scoreboard_list = $('#scoreboard');
+          scoreboard_list.empty();
+          $.each(scoreboard_json, function(key, value) {
+            key = id_to_player_name(key);
+            var listItem = $('<li>').text(key + ': ' + value.total_sum);
+            scoreboard_list.append(listItem)
+          })
+        },
+        error: function(error){
+          console.log("ajax error");
         }
       });
     }
@@ -281,8 +339,8 @@
               <div class="card-header">Información</div>
               <div class="card-body">
                 <h3 id="turn_info" style="font-weight: 1000;"></h3>
-                <h3>Puntuaciones</h3>
-                <ul id="scores">
+                <h3>Prisopuntos</h3>
+                <ul id="scoreboard">
                   
                 </ul>
               </div>
@@ -314,10 +372,6 @@
               <h5 class="card-header">Configuración</h5>
               <div class="card-body">
                 <a class="btn btn-primary" id="update-btn">Actualizar (auto 10s)</a>
-                <div class="input-group mt-3" style="width: 200px;">
-                  <span class="input-group-text">Intervalo</span>
-                  <input type="number" class="form-control" aria-label="Number input" value="10">
-                </div>
               </div>
           </div>
           </div>

@@ -12,5 +12,6 @@ urlpatterns = [
     path('card_change/', views.card_change, name='card_change'),
     path('get_user_card/', views.get_user_card, name='get_user_card'),
     path('get_logs/', views.get_logs, name='get_logs'),
+    path('get_scoreboard/', views.get_scoreboard, name='get_scoreboard'),
     path('skip_turn/', views.skip_turn, name='skip_turn'),
 ]
