@@ -123,8 +123,11 @@
           scoreboard_list.empty();
           $.each(scoreboard_json, function(key, value) {
             key = id_to_player_name(key);
-            var listItem = $('<li>').text(key + ': ' + value.total_sum);
-            scoreboard_list.append(listItem)
+            if (key != 'Aitor') {
+              var listItem = $('<li>').text(key + ': ' + value.total_sum);
+              scoreboard_list.append(listItem)              
+            }
+
           })
         },
         error: function(error){
@@ -152,6 +155,9 @@
                 listItem = $('<li>').text(`[${log.timestamp}] ${log.text}`);
                 break;
               case 'turninfo':
+                listItem = $('<li>').text(`[${log.timestamp}] ${log.text}`);
+                break;
+              case 'gameinfo':
                 listItem = $('<li>').text(`[${log.timestamp}] ${log.text}`);
                 break;
             };

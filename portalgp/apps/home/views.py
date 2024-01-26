@@ -9,6 +9,7 @@ def home(request):
     mbd_count = MBD.objects.count()
     drg_count = DRG.objects.count()
 
+    messages.success(request, 'El enigma de enero está activo! Haz clic <a href="portalgp.es/enigdic">aquí</a> para jugar.')
     return(render(request, 'home/home.html', {'gp_count': gp_count, 'mbd_count': mbd_count, 'drg_count': drg_count}))
 
 def home_start(request):

@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 from django.db.models import Sum
 import random, json, datetime
 
-from .models import Cards, CardEntry, Log, UserScore, Turn
+from .models import Cards, CardEntry, Log, UserScore, Turn, Prisopunto
 from .forms import ProfetaMessage
 
 def get_cards(request):
@@ -82,7 +82,7 @@ def calculate_scores(team1_points, team2_points):
         score_team1 = score_team2 = 2
     else:
         point_difference = abs(team1_points - team2_points)
-
+        print(point_difference)
         if point_difference == 2:
             winner = min(team1_points, team2_points)
             loser = max(team1_points, team2_points)
@@ -178,8 +178,11 @@ def restart_game(request):
     new_turn.save()
     UserScore.objects.all().delete()
     Log.objects.all().delete()
+    #Prisopunto.objects.all().delete()
+
     log_text = f"El juego ha empezado."
-    save_log(request, text=log_text, tags=['gameinfo'], timestamp_json=datetime.datetime.now().strftime('%d-%m-%Y %H:%M:%S'))
+    save_log(request=None, text=log_text, tags=['gameinfo'], timestamp_json=datetime.datetime.now().strftime('%d-%m-%Y %H:%M:%S'))
+
     return JsonResponse({'nuevo turno': new_turn.number})
 
 def admin_panel(request):
